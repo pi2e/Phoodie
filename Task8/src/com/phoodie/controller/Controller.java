@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 //import com.cfs.databean.Model;
 import com.phoodie.controller.Action;
-import com.phoodie.flickr.Photo;
 
 public class Controller extends HttpServlet {
 
@@ -22,6 +21,7 @@ public class Controller extends HttpServlet {
 	public void init() throws ServletException {
 		//Model model = new Model(getServletConfig());
 		Action.add(new HomePageAction());
+		Action.add(new AllPhotosAction());
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

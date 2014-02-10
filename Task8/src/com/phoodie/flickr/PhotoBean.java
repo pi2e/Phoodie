@@ -7,7 +7,7 @@ public class PhotoBean {
 	private String server;
 	private String farm;
 	private String title;
-	
+	private String dateAdded;
 	
 	public String getId() {
 		return id;
@@ -44,5 +44,14 @@ public class PhotoBean {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(String dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+	public String getURL() {
+		return "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + ".jpg";
 	}
 }

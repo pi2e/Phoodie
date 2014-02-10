@@ -50,8 +50,6 @@ public class Photo {
 			StringBuilder sb = new StringBuilder();
 			String output = "";
 			
-			
-			System.out.println("Output from Server .... \n");
 			while ((output = input.readLine()) != null) {
 				sb.append(output);
 			}
