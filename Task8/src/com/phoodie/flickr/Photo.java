@@ -54,28 +54,29 @@ public class Photo {
 			System.out.println("Output from Server .... \n");
 			while ((output = input.readLine()) != null) {
 				sb.append(output);
-				//System.out.println(output);
 			}
-			
-			System.out.println(sb.toString());
-			
-			String xml = sb.toString();
 			
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			Document document = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-			System.out.println(document.toString());
+			Document document = builder.parse(new ByteArrayInputStream(sb.toString().getBytes()));
 			
 			// parse xml with Xpath
 			XPath xPath = XPathFactory.newInstance().newXPath();
-			String expression = "photo";
+			String expression = "/rsp/photos/photo";
 			NodeList list = (NodeList) xPath.compile(expression).evaluate(
 					document, XPathConstants.NODESET);
 
 			for (int i = 0; i < list.getLength(); i++) {
+				
 				PhotoBean photo = new PhotoBean();
 				photo.setId(list.item(i).getAttributes().getNamedItem("id").getNodeValue());
-				System.out.println(photo.getId());
+				photo.setOwner(list.item(i).getAttributes().getNamedItem("owner").getNodeValue());
+				photo.setSecret(list.item(i).getAttributes().getNamedItem("secret").getNodeValue());
+				photo.setServer(list.item(i).getAttributes().getNamedItem("server").getNodeValue());
+				photo.setFarm(list.item(i).getAttributes().getNamedItem("farm").getNodeValue());
+				photo.setTitle(list.item(i).getAttributes().getNamedItem("title").getNodeValue());
+				
+				photoList.add(photo);
 			}
 			
 			con.disconnect();

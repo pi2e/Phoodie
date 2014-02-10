@@ -32,7 +32,6 @@ public class Controller extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String nextPage = performTheAction(request);
-		Photo.getGroupPhotos();
 		sendToNextPage(nextPage, request, response);
 	}
 
