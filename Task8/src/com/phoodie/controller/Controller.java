@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 //import com.cfs.databean.Model;
 import com.phoodie.controller.Action;
 
@@ -22,6 +23,9 @@ public class Controller extends HttpServlet {
 		//Model model = new Model(getServletConfig());
 		Action.add(new HomePageAction());
 		Action.add(new AllPhotosAction());
+		Action.add(new LoginAction());
+		Action.add(new AuthorizeAction());
+		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

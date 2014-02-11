@@ -19,7 +19,7 @@ public class HomePageAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 
-		return "../jsp/home.jsp";
+		return "../jsp/login.jsp";
 	}
 
 }
