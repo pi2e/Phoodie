@@ -73,6 +73,7 @@ public class Photo {
 				photo.setServer(list.item(i).getAttributes().getNamedItem("server").getNodeValue());
 				photo.setFarm(list.item(i).getAttributes().getNamedItem("farm").getNodeValue());
 				photo.setTitle(list.item(i).getAttributes().getNamedItem("title").getNodeValue());
+				photo.setOwnerName(list.item(i).getAttributes().getNamedItem("ownername").getNodeValue());
 				
 				photoList.add(photo);
 			}

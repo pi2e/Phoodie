@@ -7,6 +7,13 @@ public class PhotoBean {
 	private String server;
 	private String farm;
 	private String title;
+	private String ownerName;
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
 	private String dateAdded;
 	
 	public String getId() {
