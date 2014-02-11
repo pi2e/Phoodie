@@ -5857,4 +5857,9 @@ td.visible-print {
 	font-family:"menuFont";
 }
 
+.flickrButton {
+	max-height: 18px;
+}
+
+
 /*# sourceMappingURL=bootstrap.css.map */
