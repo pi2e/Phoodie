@@ -323,7 +323,6 @@ img {
   padding: 4px;
   line-height: 1.428571429;
   background-color: #fff;
-  border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all .2s ease-in-out;
           transition: all .2s ease-in-out;
@@ -3944,7 +3943,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default {
   background-color: #f8f8f8;
-  border-color: #e7e7e7;
+
 }
 .navbar-default .navbar-brand {
   color: #777;
@@ -4410,7 +4409,6 @@ a.list-group-item.active > .badge,
   margin-bottom: 20px;
   line-height: 1.428571429;
   background-color: #fff;
-  border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all .2s ease-in-out;
           transition: all .2s ease-in-out;
@@ -5829,4 +5827,34 @@ td.visible-print {
     display: none !important;
   }
 }
+
+.navbar-header .navbar-icon {
+    line-height:55px;
+    height:50px;
+}
+
+.navbar-header  a.navbar-icon {
+    padding:0 10px;
+    float:left;
+}
+
+@font-face {
+	font-family:'headerFont';
+	src: url('Supra-ThinDemiserifWeb.woff');  	
+}
+
+.appHead {
+	font-family:"headerFont";
+	font-size: 22px;
+}
+
+@font-face {
+	font-family:'menuFont';
+	src: url('Supra-ThinWeb.woff');  	
+}
+
+.appMenu {
+	font-family:"menuFont";
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

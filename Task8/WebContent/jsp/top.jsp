@@ -29,7 +29,7 @@
 </head>
 
 <body>
-	<div class="navbar navbar-fixed-top navbar-default" role="navigation">
+	<div class="navbar navbar-fixed-top navbar-default appMenu" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -38,17 +38,18 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#"><span><span
-						class="glyphicon glyphicon-cutlery"></span> Phoodie</span></a>
+						class="glyphicon glyphicon-cutlery"></span><span class="appHead"> Phoodie</span></span></a> <a href="#"
+					class="navbar-icon"><span class="glyphicon glyphicon-home"></span><span class="hidden-xs"> Home</span></a>
+				<a href="#" class="navbar-icon"><span
+					class="glyphicon glyphicon-fire"></span><span class="hidden-xs"> What's Cooking</span></a>
 			</div>
-			<div class="navbar-collapse collapse">
+
+			<div class="navbar-collapse collapse navbar-right">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#"><span
-							class="glyphicon glyphicon-home"></span></a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-fire"></span></a></li>
-					<li><a href="#about"><span
-							class="glyphicon glyphicon-heart"></span></a></li>
+					<li><a href="#about"><span class="glyphicon glyphicon-cog"></span></a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
+
 		</div>
 	</div>

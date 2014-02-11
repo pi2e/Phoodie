@@ -2,12 +2,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container-fluid">
+<div class="container">
 	<c:forEach var="photo" items="${photos}" varStatus="status">
-		<div class="row text-center">
-			<div class="col-xs-8 col-lg-4">
-				<a href="#" class="thumbnail"> <img class="img-responsive" src="${photo.getURL() }">
-				</a>
+		<div class="row">
+			<div class="col">
+				<div class="thumbnail"> <img src="${photo.getURL() }">
+				</div>
 			</div>
 		</div>
 	</c:forEach>
