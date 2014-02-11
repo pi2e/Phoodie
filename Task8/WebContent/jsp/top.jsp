@@ -47,6 +47,7 @@
 			<div class="navbar-collapse collapse navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="#about"><span class="glyphicon glyphicon-cog"></span></a></li>
+					<li><a href="logout.do">Logout</a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->

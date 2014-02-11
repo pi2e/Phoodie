@@ -1,5 +1,7 @@
 package com.phoodie.controller;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +26,18 @@ public class AllPhotosAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 
-		List<PhotoBean> list = Photo.getGroupPhotos();
-		request.setAttribute("photos", list);
+		List<PhotoBean> list;
+		try {
+			list = Photo.getGroupPhotos(request);
+			request.setAttribute("photos", list);
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return "../jsp/home.jsp";
 	}

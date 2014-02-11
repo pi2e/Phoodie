@@ -26,12 +26,13 @@ import org.apache.http.message.BasicNameValuePair;
  *
  */
 public class OAuthUtility {
-	private static String key = "2eafd8e1dc8f99a4e6063c2c86acc6bb";
-	private static String secret = "24b63a1dad901454";
+	public static String key = "2eafd8e1dc8f99a4e6063c2c86acc6bb";
+	public static String secret = "24b63a1dad901454";
 	public static String requestTokenSecret;
 	private static final String HMAC_SHA1 = "HmacSHA1";
 	private static final String ENC = "UTF-8";
 	private static Base64 base64 = new Base64();
+	public static String groupId = "2492917@N24";
 
 	public static URL requestToken() throws InvalidKeyException,
 			UnsupportedEncodingException, NoSuchAlgorithmException,
@@ -62,7 +63,7 @@ public class OAuthUtility {
 		return uri.toURL();
 	}
 
-	private static String getSignature(String action, String url, String params)
+	public static String getSignature(String action, String url, String params)
 			throws UnsupportedEncodingException, NoSuchAlgorithmException,
 			InvalidKeyException {
 		/**

@@ -2,16 +2,17 @@ package com.phoodie.flickr;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,26 +23,25 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import com.phoodie.utility.OAuthUtility;
 
 public class Photo {
 
 	// PHOODIE groupId
-	private static String groupId = "2492917@N24";
-	private static String apiKey = "b6ae41f4edb2898bd748d85b4d5fe130";
+	//private static String groupId = "2492917@N24";
+	//private static String apiKey = "2eafd8e1dc8f99a4e6063c2c86acc6bb";
 
-	public static List<PhotoBean> getGroupPhotos() {
+	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request) throws InvalidKeyException, NoSuchAlgorithmException {
 
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
 
 		try {
-			// URL url = new
-			// URL("http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
-			// + apiKey + "&group_id=" + groupId);
-			// change to this link after authentication is done
-			URL url = new URL(
-					"http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=54e9dcd29f3b3169ff3c674bda07d531&group_id=2492917%40N24&format=rest&auth_token=72157640790185704-904e283029854dfb&api_sig=6dac44361a204ca6d56da0a9e247e19f");
+			URL url = new
+			URL("http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&oauth_consumer_key="
+			+ OAuthUtility.key + "&group_id=" + OAuthUtility.groupId + "&oauth_token=" + request.getSession().getAttribute("oauth_token"));
+			
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 

@@ -1,6 +1,9 @@
 package com.phoodie.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
+
+
+
+
+import javax.servlet.http.HttpSession;
 
 
 
@@ -25,6 +33,7 @@ public class Controller extends HttpServlet {
 		Action.add(new AllPhotosAction());
 		Action.add(new LoginAction());
 		Action.add(new AuthorizeAction());
+		Action.add(new LogoutAction());
 		
 	}
 
@@ -40,7 +49,24 @@ public class Controller extends HttpServlet {
 	}
 
 	private String performTheAction(HttpServletRequest request) {
-		//HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
+		Enumeration dataList = session.getAttributeNames();
+		while(dataList.hasMoreElements()){
+			System.out.println(dataList.nextElement()); 
+		}
+		
+		if (session.getAttribute("oauth_token_secret") == null) {
+			if(request.getParameter("login") == null || request.getParameter("login").toString().equals("")) {
+				System.out.println("hello"+request.getParameter("login"));
+				return "login.jsp";
+				
+			} else {
+				System.out.println("login.do");
+				return Action.perform("login.do", request);
+				
+			}
+		}
+		
 		String servletPath = request.getServletPath();
 		String action = getActionName(servletPath);
 

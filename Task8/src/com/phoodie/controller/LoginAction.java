@@ -30,7 +30,7 @@ public class LoginAction extends Action {
 	public String perform(HttpServletRequest request) {
 		String urlString = "";
 		try {
-
+			
 			URL url = OAuthUtility.requestToken();
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -63,6 +63,7 @@ public class LoginAction extends Action {
 				urlString = "https://www.flickr.com/services/oauth/authorize?oauth_token="
 						+ urlParam.get("oauth_token");
 				request.getSession().setAttribute("oauth_token_secret", urlParam.get("oauth_token_secret"));
+				request.getSession().setAttribute("oauth_token", urlParam.get("oauth_token"));
 				System.out.println("oauth"+request.getSession().getAttribute("oauth_token_secret"));
 			}
 
