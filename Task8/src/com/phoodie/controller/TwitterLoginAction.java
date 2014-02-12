@@ -1,5 +1,6 @@
 package com.phoodie.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.scribe.builder.ServiceBuilder;
@@ -17,20 +18,21 @@ public class TwitterLoginAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		OAuthService service = new ServiceBuilder()
-        .provider(TwitterApi.SSL.class)
-        .apiKey("lf8Q0AZ90OP8PS4qViZDog")
-        .apiSecret("E3DOWSiiqyqbayGPCebv9WAwQlNQZp2Dxtm6xxE")
-        .callback("http://localhost:8080/Task8/twitterOAuth.do")
-        .build();
-		
-		
+				.provider(TwitterApi.SSL.class)
+				.apiKey("lf8Q0AZ90OP8PS4qViZDog")
+				.apiSecret("E3DOWSiiqyqbayGPCebv9WAwQlNQZp2Dxtm6xxE")
+				.callback("http://localhost:8080/Task8/twitterOAuth.do")
+				.build();
+
 		Token requestToken = service.getRequestToken();
 		
+		request.getSession().setAttribute("service", service);
+		request.getSession().setAttribute("requestToken", requestToken);
+
 		String authUrl = service.getAuthorizationUrl(requestToken);
-		
-		
-		
+
 		return authUrl;
 	}
+	
 
 }
