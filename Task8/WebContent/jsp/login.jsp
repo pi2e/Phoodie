@@ -47,12 +47,6 @@
 						<img class="flickrButton" src="./img/Flickr_logo.png"/>
 					</button>
 				</form>
-				<form method="post" action="twitterLogin.do">
-					<input type="hidden" id="login" name="login" value="login" />
-					<button type="submit" class="btn btn-default">
-					<span class="appMenu">Log in with Twitter</span>&nbsp;
-					</button>
-				</form>
 			</div>
 		</div>
 	</div>

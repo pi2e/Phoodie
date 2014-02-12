@@ -5861,5 +5861,19 @@ td.visible-print {
 	max-height: 18px;
 }
 
+.appRow {
+	max-width: 500px;
+	margin: auto;
+	padding-bottom: 25px;
+}
+
+.feedPic {
+	padding-bottom: 2px;
+}
+
+.buttonFont {
+	font-size: 13px;
+}
+
 
 /*# sourceMappingURL=bootstrap.css.map */

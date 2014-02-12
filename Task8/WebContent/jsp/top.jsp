@@ -29,7 +29,8 @@
 </head>
 
 <body>
-	<div class="navbar navbar-fixed-top navbar-default appMenu" role="navigation">
+	<div class="navbar navbar-fixed-top navbar-default appMenu"
+		role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -38,16 +39,22 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#"><span><span
-						class="glyphicon glyphicon-cutlery"></span><span class="appHead"> Phoodie</span></span></a> <a href="#"
-					class="navbar-icon"><span class="glyphicon glyphicon-home"></span><span class="hidden-xs"> Home</span></a>
-				<a href="#" class="navbar-icon"><span
-					class="glyphicon glyphicon-fire"></span><span class="hidden-xs"> What's Cooking</span></a>
+						class="glyphicon glyphicon-cutlery"></span><span class="appHead">
+							Phoodie</span></span></a> <a href="allPhotos.do" class="navbar-icon"><span
+					class="glyphicon glyphicon-home"></span><span class="hidden-xs">
+						Home</span></a> <a href="#" class="navbar-icon"><span
+					class="glyphicon glyphicon-fire"></span><span class="hidden-xs">
+						What's Cooking</span></a>
 			</div>
 
 			<div class="navbar-collapse collapse navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="#about"><span class="glyphicon glyphicon-cog"></span></a></li>
-					<li><a href="logout.do">Logout</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-cog"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="twitterLogin.do">Twitter</a></li>
+							<li><a href="logout.do">Logout</a></li>
+						</ul></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
