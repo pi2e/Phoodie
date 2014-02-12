@@ -40,14 +40,13 @@ public class LoginAction extends Action {
 			String redirectUrl = "";
 			String output;
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
+				System.out.println("request token"+output);
 				redirectUrl = output;
 			}
 			String[] parameters = redirectUrl.split("&");
 			
 			Map<String, String> urlParam = new HashMap<String, String>();
 			for (String string : parameters) {
-
 				String[] paramValpair = string.split("=");
 				urlParam.put(paramValpair[0], paramValpair[1]);
 			}
@@ -58,13 +57,14 @@ public class LoginAction extends Action {
 						pairs.getValue());
 			}
 			con.disconnect();
+			
 			if (urlParam.get("oauth_callback_confirmed").equalsIgnoreCase(
 					"true")) {
 				urlString = "https://www.flickr.com/services/oauth/authorize?oauth_token="
 						+ urlParam.get("oauth_token");
 				request.getSession().setAttribute("oauth_token_secret", urlParam.get("oauth_token_secret"));
 				request.getSession().setAttribute("oauth_token", urlParam.get("oauth_token"));
-				System.out.println("oauth"+request.getSession().getAttribute("oauth_token_secret"));
+				System.out.println("oauth"+ request.getSession().getAttribute("oauth_token"));
 			}
 
 			System.out.println("redirects from login"+urlString);

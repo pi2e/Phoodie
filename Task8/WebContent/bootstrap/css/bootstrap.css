@@ -5875,5 +5875,14 @@ td.visible-print {
 	font-size: 13px;
 }
 
+.buttons {
+	border: none;
+}
+
+.searchBar {
+	max-width: 200px;
+}
+
+
 
 /*# sourceMappingURL=bootstrap.css.map */

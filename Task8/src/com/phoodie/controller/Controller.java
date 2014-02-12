@@ -35,7 +35,9 @@ public class Controller extends HttpServlet {
 		Action.add(new AuthorizeAction());
 		Action.add(new TwitterLoginAction());
 		Action.add(new TwitterOAuthAction());
+		Action.add(new DiscoverAction());
 		Action.add(new LogoutAction());
+		Action.add(new PostCommentAction());
 		
 	}
 

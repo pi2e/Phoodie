@@ -45,6 +45,9 @@
 						Home</span></a> <a href="#" class="navbar-icon"><span
 					class="glyphicon glyphicon-fire"></span><span class="hidden-xs">
 						What's Cooking</span></a>
+						<a href="discover.do" class="navbar-icon"><span
+					class="glyphicon glyphicon-search"></span><span class="hidden-xs">
+						Search</span></a>
 			</div>
 
 			<div class="navbar-collapse collapse navbar-right">
@@ -58,6 +61,5 @@
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
-
 		</div>
 	</div>
