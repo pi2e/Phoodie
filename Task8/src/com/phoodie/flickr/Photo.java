@@ -230,7 +230,6 @@ public class Photo {
 	}
 
 	
-
 	public static void postComment(String photoId, String comment,
 			HttpServletRequest httprequest) {
 
@@ -244,6 +243,21 @@ public class Photo {
 		OAuthUtility.service.signRequest(
 				OAuthUtility.getAccessToken(httprequest), request);
 		request.send();
+	}
+	
+	public static void addToFavorite(String photoId,
+			HttpServletRequest httprequest) {
+		
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.photos.favorites.add");
+		request.addQuerystringParameter("photo_id", photoId);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		request.send();
+		
 	}
 
 }
