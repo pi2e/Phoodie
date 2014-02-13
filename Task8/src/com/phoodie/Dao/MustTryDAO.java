@@ -6,21 +6,21 @@ import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
-import com.phoodie.databean.User;
+import com.phoodie.databean.MustTry;
 
-public class UserDAO extends GenericDAO<User> {
+public class MustTryDAO extends GenericDAO<MustTry> {
 
-	public UserDAO(ConnectionPool cp, String tableName) throws DAOException {
+	public MustTryDAO(ConnectionPool cp, String tableName) throws DAOException {
 
-		super(User.class, tableName, cp);
+		super(MustTry.class, tableName, cp);
 	}
 	
 	
-	public User[] getUserFavorite(String userid) throws DAOException {
+	public MustTry[] getUserFavorite(String userid) throws DAOException {
 		
 		try {
 
-			User[] userFavData = match(MatchArg.equals("userid",
+			MustTry[] userFavData = match(MatchArg.equals("userid",
 					userid));
 			if (userFavData != null && userFavData.length != 0) {
 				return userFavData;

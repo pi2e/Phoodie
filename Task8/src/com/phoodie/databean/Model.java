@@ -12,11 +12,11 @@ import com.phoodie.Dao.CuisineRankDAO;
 import com.phoodie.Dao.DishRankDAO;
 import com.phoodie.Dao.RestaurantRankDAO;
 import com.phoodie.Dao.ShareDAO;
-import com.phoodie.Dao.UserDAO;
+import com.phoodie.Dao.MustTryDAO;
 
 public class Model {
 
-	private UserDAO userDAO;
+	private MustTryDAO MustTryDAO;
 	private CommentDAO commentDAO;
 	private ShareDAO shareDAO;
 	private CuisineDAO cuisineDAO;
@@ -24,12 +24,14 @@ public class Model {
 	private CuisineRankDAO cuisineRankDAO;
 	private DishRankDAO dishRankDAO;
 	
-	public UserDAO getUserDAO() {
-		return userDAO;
+	
+
+	public MustTryDAO getMustTryDAO() {
+		return MustTryDAO;
 	}
 
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
+	public void setMustTryDAO(MustTryDAO mustTryDAO) {
+		MustTryDAO = mustTryDAO;
 	}
 
 	public CommentDAO getCommentDAO() {
@@ -91,7 +93,7 @@ public class Model {
 			String jdbcURL = servletConfig.getInitParameter("jdbcURL");
 			ConnectionPool cp = new ConnectionPool(jdbcDriver, jdbcURL);
 
-			userDAO = new UserDAO(cp, "USER");
+			MustTryDAO = new MustTryDAO(cp, "MUSTTRY");
 			commentDAO = new CommentDAO(cp, "COMMENT");
 			shareDAO = new ShareDAO(cp, "SHARE");
 			cuisineDAO = new CuisineDAO(cp,"CUISINE");
