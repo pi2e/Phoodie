@@ -110,6 +110,92 @@ public class Photo {
 		return photoList;
 	}
 	
+	public static List<PhotoBean> searchPhotos(HttpServletRequest request, String search, String type) throws InvalidKeyException, NoSuchAlgorithmException {
+
+		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
+
+		try {
+			
+			String searchParameter = "";
+			
+			if(type.equalsIgnoreCase("restaurant")) {
+				
+				searchParameter = "restaurant:name=" + search;
+				
+			} else if(type.equalsIgnoreCase("dish")) {
+				
+				searchParameter = "dish:name=" + search;
+				
+			} else if(type.equalsIgnoreCase("cuisine")) {
+				
+				searchParameter = "cuisine:id=" + search;
+				
+			}
+			
+			
+			URL url = new		
+			URL("http://api.flickr.com/services/rest/?method=flickr.photos.search&oauth_consumer_key="
+			+ OAuthUtility.key + "&group_id=" + OAuthUtility.groupId + "&machine_tags=" + searchParameter + "&oauth_token=" + request.getSession().getAttribute("oauth_token"));
+			
+			System.out.println(url.toString());
+			
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+
+			
+			BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String output = "";
+			
+			while ((output = input.readLine()) != null) {
+				sb.append(output);
+			}
+			
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			Document document = builder.parse(new ByteArrayInputStream(sb.toString().getBytes()));
+			
+			// parse xml with Xpath
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			String expression = "/rsp/photos/photo";
+			NodeList list = (NodeList) xPath.compile(expression).evaluate(
+					document, XPathConstants.NODESET);
+
+			for (int i = 0; i < list.getLength(); i++) {
+				
+				PhotoBean photo = new PhotoBean();
+				photo.setId(list.item(i).getAttributes().getNamedItem("id").getNodeValue());
+				photo.setOwner(list.item(i).getAttributes().getNamedItem("owner").getNodeValue());
+				photo.setSecret(list.item(i).getAttributes().getNamedItem("secret").getNodeValue());
+				photo.setServer(list.item(i).getAttributes().getNamedItem("server").getNodeValue());
+				photo.setFarm(list.item(i).getAttributes().getNamedItem("farm").getNodeValue());
+				photo.setTitle(list.item(i).getAttributes().getNamedItem("title").getNodeValue());
+				
+				photoList.add(photo);
+			}
+			
+			con.disconnect();
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return photoList;
+	}
+	
 	public static void postComment(String photoId, String comment, HttpServletRequest request) {
 		URL url;
 		try {
