@@ -15,8 +15,10 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpRequest;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -26,6 +28,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.FlickrApi;
+import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;
 
 /**
@@ -223,4 +226,12 @@ public class OAuthUtility {
 				ENC))), ENC).trim();
 	}
 
+	
+	public static Token getAccessToken(HttpServletRequest request){
+		String secretToken = (String) request.getSession().getAttribute(
+				"oauth_token_secret");
+		String token = (String)request.getSession().getAttribute("oauth_token");
+		Token accessToken = new Token(token, secretToken);
+		return accessToken;
+	}
 }
