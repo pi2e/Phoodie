@@ -30,6 +30,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -196,82 +200,30 @@ public class Photo {
 		return photoList;
 	}
 	
-	public static void postComment(String photoId, String comment, HttpServletRequest request) {
-		URL url;
-		try {
-			url = accessToken(request.getSession().getAttribute("oauth_token").toString(), photoId, comment);
-			
-			System.out.println(url.toString());
-			
-			//url = new
-			//		URL("http://api.flickr.com/services/rest/?method=flickr.photos.comments.addComment&oauth_consumer_key="
-			//		+ OAuthUtility.key + "&photo_id=" + photoId + "&comment_text=" + comment /* + "&oauth_token=" + request.getSession().getAttribute("oauth_token")*/);
-		
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			
-			BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			StringBuilder sb = new StringBuilder();
-			String output = "";
-			
-			while ((output = input.readLine()) != null) {
-				sb.append(output);
-				System.out.println(output);
-			}
-			
-			con.disconnect();
-		
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-	}
-	
-	public static URL accessToken(String token, String photoId, String comment)
-			throws InvalidKeyException, UnsupportedEncodingException,
-			NoSuchAlgorithmException, URISyntaxException, MalformedURLException {
+	public static void postComment(String photoId, String comment,
+			HttpServletRequest request) {
+		String secretToken = (String) request.getSession().getAttribute(
+				"oauth_token_secret");
+		commentFlickr(request.getSession().getAttribute("oauth_token")
+				.toString(), photoId, comment, secretToken);
 
-		List<NameValuePair> qparams = new ArrayList<NameValuePair>();
-		System.out.println("In access token---");
-		
-		qparams.add(new BasicNameValuePair("comment_text", comment));
-		qparams.add(new BasicNameValuePair("oauth_consumer_key", OAuthUtility.key));
-		qparams.add(new BasicNameValuePair("oauth_nonce", ""
-				+ (int) (Math.random() * 100000000)));
-		qparams.add(new BasicNameValuePair("oauth_signature_method",
-				"HMAC-SHA1"));
-		qparams.add(new BasicNameValuePair("oauth_timestamp", ""
-				+ (System.currentTimeMillis() / 1000)));
-		qparams.add(new BasicNameValuePair("oauth_token", token));
-		qparams.add(new BasicNameValuePair("oauth_version", "1.0"));
-		qparams.add(new BasicNameValuePair("photo_id", photoId));
-
-		// generate the oauth_signature
-		String signature = OAuthUtility.getSignature("request", URLEncoder.encode(
-				"services/rest", ENC),
-				URLEncoder.encode(URLEncodedUtils.format(qparams, ENC), ENC));
-		qparams.add(new BasicNameValuePair("oauth_signature", signature));
-		qparams.add(new BasicNameValuePair("method", "flickr.photos.comments.addComment"));
-		// generate URI which lead to access_token and token_secret.
-		URI uri = URIUtils.createURI("http", "flickr.com", -1,
-				"services/rest",
-				URLEncodedUtils.format(qparams, ENC), null);
-		return uri.toURL();
 	}
+
+	public static void commentFlickr(String token, String photoId,
+			String comment, String secret) {
+
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.photos.comments.addComment");
+		request.addQuerystringParameter("comment_text", comment);
+		request.addQuerystringParameter("photo_id", photoId);
+		Token accessToken = new Token(token, secret);
+		OAuthUtility.service.signRequest(accessToken, request);
+		Response resp = request.send();
+		resp.getBody();
+	}
+
 }
+
+
