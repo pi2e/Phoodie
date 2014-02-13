@@ -41,7 +41,7 @@ public class TwitterAPI {
 	}
 	
 	public void retweet(String id) {
-		OAuthRequest trequest = new OAuthRequest(Verb.POST, updateapi+ id +".json");
+		OAuthRequest trequest = new OAuthRequest(Verb.POST, retweetapi+ id +".json");
 		service.signRequest(accessToken, trequest); 
 		trequest.send();
 	}
