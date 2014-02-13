@@ -107,11 +107,15 @@ public class YelpSerachAction {
 
     YelpSerachAction yelp = new YelpSerachAction(consumerKey, consumerSecret, token, tokenSecret);
  //   String response = yelp.search("five guys burgers", 40.44278, -79.956697);
-    String response = yelp.search("little asia", "pittsburgh");
+    String response = yelp.search("chinese", "pittsburgh");
     System.out.println(response);
     Gson gson = new Gson(); 
     YelpBean yelpResult = gson.fromJson(response, YelpBean.class); 
-    System.out.println(yelpResult.getBiz().get(1).getLocation().getAddress());
+    for (int i = 0; i < yelpResult.getBiz().size(); i++) {
+    	System.out.println(yelpResult.getBiz().get(i).getName());
+        System.out.println(yelpResult.getBiz().get(i).getLocation().getAddress());
+        
+    }
     
     
   }
