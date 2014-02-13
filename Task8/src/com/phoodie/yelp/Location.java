@@ -16,4 +16,13 @@ public class Location {
 	public ArrayList<String> getAddress() {
 		return display_address;
 	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public String getStateCode() {
+		return state_code;
+	}
+	
 }
