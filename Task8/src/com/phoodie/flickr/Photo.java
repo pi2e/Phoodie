@@ -229,14 +229,9 @@ public class Photo {
 		return photoList;
 	}
 
+	
+
 	public static void postComment(String photoId, String comment,
-			HttpServletRequest httprequest) {
-
-		commentFlickr(photoId, comment, httprequest);
-
-	}
-
-	public static void commentFlickr(String photoId, String comment,
 			HttpServletRequest httprequest) {
 
 		OAuthRequest request = new OAuthRequest(Verb.POST,
