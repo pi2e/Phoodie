@@ -3,7 +3,7 @@ package com.phoodie.databean;
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("userId")
-public class User {
+public class MustTry {
 
 	private int userId;
 	private String photoId;
