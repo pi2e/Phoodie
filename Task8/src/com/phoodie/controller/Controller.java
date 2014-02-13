@@ -20,15 +20,17 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 //import com.cfs.databean.Model;
 import com.phoodie.controller.Action;
+import com.phoodie.databean.Model;
 
 public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = -3816380241319936080L;
 
 	public void init() throws ServletException {
-		//Model model = new Model(getServletConfig());
+		Model model = new Model(getServletConfig());
 		Action.add(new HomePageAction());
 		Action.add(new AllPhotosAction());
 		Action.add(new LoginAction());
