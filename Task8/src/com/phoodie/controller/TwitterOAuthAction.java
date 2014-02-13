@@ -3,16 +3,10 @@ package com.phoodie.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
 import org.scribe.model.Token;
-import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
-import com.google.gson.Gson;
-import com.phoodie.twitter.TwitterAPI;
-import com.phoodie.twitter.TwitterSearchResult;
 
 public class TwitterOAuthAction extends Action{
 	
@@ -35,15 +29,6 @@ public class TwitterOAuthAction extends Action{
 		Token accessToken = service.getAccessToken(requestToken, v);
 		request.getSession().setAttribute("accessToken", accessToken);
 		
-		TwitterAPI t = new TwitterAPI(request);
-		
-//		OAuthRequest trequest = new OAuthRequest(Verb.GET, searchapi);
-//		service.signRequest(accessToken, trequest); 
-//		Response response = trequest.send();
-//		
-//		Gson g = new Gson();
-		TwitterSearchResult sr = t.search("1024");
-		System.out.println(sr.getStatuses().get(0).getText());
 		return "home.jsp";
 	}
 
