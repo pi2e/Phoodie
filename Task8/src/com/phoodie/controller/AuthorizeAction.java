@@ -71,6 +71,7 @@ public class AuthorizeAction extends Action {
 			}
 			request.getSession().setAttribute("oauth_token_secret", urlParam.get("oauth_token_secret"));
 			request.getSession().setAttribute("oauth_token", urlParam.get("oauth_token"));
+			request.getSession().setAttribute("user_nsid", urlParam.get("user_nsid"));
 			return "allPhotos.do";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

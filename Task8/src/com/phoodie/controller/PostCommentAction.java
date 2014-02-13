@@ -24,6 +24,8 @@ public class PostCommentAction extends Action {
 		String comment = request.getParameter("comment").toString();
 		String photoId = request.getParameter("photoId").toString();
 		
+		System.out.println(photoId);
+		
 		Photo.postComment(photoId, comment, request);
 		
 		return "../jsp/home.jsp";

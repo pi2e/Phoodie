@@ -23,13 +23,13 @@
 						class="buttonFont">Must try!</span>
 				</button>
 				<button type="button" class="btn btn-default buttons"
-					data-toggle="modal" data-target="#myModal">
+					data-toggle="modal" data-target="#myModal${photo.id }">
 					<span class="glyphicon glyphicon-comment"></span> <span
 						class="buttonFont">Comment</span>
 				</button>
 
 				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				<div class="modal fade" id="myModal${photo.id}" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -38,10 +38,10 @@
 									aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel">Comments</h4>
 							</div>
-							<div class="modal-body">....</div>
+							<div class="modal-body">${photo.id }</div>
 							<div class="modal-footer">
 
-								<form action="postComment.do" method="post" id="commentForm"
+								<form action="postComment.do" method="post" id="commentForm${photo.id}"
 									name="commentForm">
 									<input type="hidden" name="photoId" value="${photo.getId() }">
 									<input type="text" name="comment" class="form-control"
@@ -49,7 +49,7 @@
 									<button type="button" class="btn btn-default"
 										data-dismiss="modal">Cancel</button>
 									<button type="button" class="btn btn-primary"
-										onclick="javascript:submitPage();">Post</button>
+										onclick="javascript:submitPage('${photo.id}');">Post</button>
 								</form>
 
 							</div>
@@ -63,8 +63,8 @@
 	</c:forEach>
 
 	<script>
-		function submitPage() {
-			var comm = document.getElementById("commentForm");
+		function submitPage(photoId) {
+			var comm = document.getElementById("commentForm"+photoId);
 			//this.form.comment;
 			if (comm.comment.value.trim() == '') {
 				return;
