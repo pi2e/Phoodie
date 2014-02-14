@@ -16,20 +16,18 @@
 				</div>
 				<img class="feedPic" src="${photo.getURL() }">
 
-				<button type="button" onclick="fav(${photo.id});"
+				<button type="button" onclick="fav(${photo.id}, this);"
 					class="btn btn-default buttons">
 					<span class="glyphicon glyphicon-heart-empty"></span> <span
 						class="buttonFont">Fav</span>
 				</button>
 
-				<form action="mustTry.do" method="post" style="display: inline;">
 					<input type="hidden" name="photoId" value="${photo.id }">
-					<button type="submit"
+					<button type="submit" onclick="musttry(${photo.id}, this);"
 						class="btn btn-default buttons ${photo.mustTry == 'true' ? 'disabled' : ''}">
 						<span class="glyphicon glyphicon-star"></span> <span
 							class="buttonFont">Must try!</span>
 					</button>
-				</form>
 
 
 				<button type="button" class="btn btn-default buttons"
@@ -88,10 +86,19 @@
 	</c:forEach>
 
 	<script>
-	function fav(photoId) {
+	function fav(photoId, button) {
 		var url = "./fav.do?photoid=" + photoId;
 		$.get(url);
+		button.className = "btn btn-default buttons disabled";
 		alert("fav it!");
+		
+	}
+	
+	function musttry(photoId, button) {
+		var url = "./mustTry.do?photoId=" + photoId;
+		$.get(url);
+		button.className = "btn btn-default buttons disabled";
+		alert("try it!");
 		
 	}
 		function submitPage(photoId, type) {

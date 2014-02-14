@@ -39,7 +39,7 @@ private MustTryDAO mustTryDAO;
 			e.printStackTrace();
 		}	
 		
-		return "allPhotos.do";
+		return "ajax";
 	}
 
 }

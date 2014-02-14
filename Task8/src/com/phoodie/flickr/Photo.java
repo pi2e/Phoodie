@@ -386,6 +386,20 @@ public class Photo {
 		request.send();
 	}
 	
+	public static void addfav(String photoId,
+			HttpServletRequest httprequest) {
+
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.favorites.add");
+		request.addQuerystringParameter("photo_id", photoId);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		request.send();
+	}
+	
 	public static List<CommentBean> getComments(HttpServletRequest request, String photoId)
 			throws InvalidKeyException, NoSuchAlgorithmException {
 
