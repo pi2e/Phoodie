@@ -113,6 +113,71 @@ public class Photo {
 		return photo;
 		
 	}
+	
+	public static String getPhotoURL(HttpServletRequest request, String photoId)
+			throws InvalidKeyException, NoSuchAlgorithmException {
+		
+		String photoURL = "";
+		
+		try {
+			URL url = new URL(
+					"http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&oauth_consumer_key="
+							+ OAuthUtility.key
+							+ "&photo_id="
+							+ photoId
+							+ "&oauth_token="
+							+ request.getSession().getAttribute("oauth_token"));
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+
+			BufferedReader input = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String output = "";
+
+			while ((output = input.readLine()) != null) {
+				sb.append(output);
+				System.out.println(output);
+			}
+
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			Document document = builder.parse(new ByteArrayInputStream(sb
+					.toString().getBytes()));
+
+			// parse xml with Xpath
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			String expression = "/rsp/photo/urls/url";
+			NodeList list = (NodeList) xPath.compile(expression).evaluate(
+					document, XPathConstants.NODESET);
+
+			photoURL = list.item(0).getFirstChild().getNodeValue().toString();
+			System.out.println(photoURL);
+
+			con.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return photoURL;
+		
+	}
 
 	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request)
 			throws InvalidKeyException, NoSuchAlgorithmException {
