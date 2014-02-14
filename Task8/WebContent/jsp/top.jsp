@@ -42,15 +42,16 @@
 						class="glyphicon glyphicon-cutlery"></span><span class="appHead">
 							Phoodie</span></span></a> <a href="allPhotos.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-home"></span><span class="hidden-xs">
-						Home</span></a> <a href="#" class="navbar-icon"><span
+						Home</span></a> <a href="userPhotos.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-fire"></span><span class="hidden-xs">
-						What's Cooking</span></a>
+						Your Photos</span></a>
 						<a href="discover.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-search"></span><span class="hidden-xs">
 						Search</span></a>
 						<a href="viewPhoodList.do" class="navbar-icon hidden-xs"><span
 					class="glyphicon glyphicon-star"></span><span class="hidden-xs">
 						Phood List</span></a>
+					
 			</div>
 
 			<div class="navbar-collapse collapse navbar-right">

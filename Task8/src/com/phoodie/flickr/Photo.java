@@ -23,6 +23,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Verb;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -385,4 +386,65 @@ public class Photo {
 		return commentList;
 	}
 
+	public static List<PhotoBean> getUserPhotos(HttpServletRequest httprequest) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.people.getPhotos");
+		System.out.println("userid"+(String)httprequest.getSession().getAttribute("user_nsid"));
+		request.addQuerystringParameter("user_id", (String)httprequest.getSession().getAttribute("user_nsid"));
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		Response res = request.send();
+		
+		BufferedReader input = new BufferedReader(new InputStreamReader(res.getStream()));
+		StringBuilder sb = new StringBuilder();
+		String output = "";
+
+		while ((output = input.readLine()) != null) {
+			sb.append(output);
+		}
+
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document document = builder.parse(new ByteArrayInputStream(sb
+				.toString().getBytes()));
+
+		// parse xml with Xpath
+		XPath xPath = XPathFactory.newInstance().newXPath();
+		String expression = "/rsp/photos/photo";
+		NodeList list = (NodeList) xPath.compile(expression).evaluate(
+				document, XPathConstants.NODESET);
+
+		for (int i = 0; i < list.getLength(); i++) {
+
+			PhotoBean photo = new PhotoBean();
+			photo.setId(list.item(i).getAttributes().getNamedItem("id")
+					.getNodeValue());
+			photo.setOwner(list.item(i).getAttributes()
+					.getNamedItem("owner").getNodeValue());
+			photo.setSecret(list.item(i).getAttributes()
+					.getNamedItem("secret").getNodeValue());
+			photo.setServer(list.item(i).getAttributes()
+					.getNamedItem("server").getNodeValue());
+			photo.setFarm(list.item(i).getAttributes().getNamedItem("farm")
+					.getNodeValue());
+			photo.setTitle(list.item(i).getAttributes()
+					.getNamedItem("title").getNodeValue());
+
+			photoList.add(photo);
+		}
+		
+		
+		Collections.reverse(photoList);
+
+		//con.disconnect();
+		//System.out.println(res.getBody());
+		return photoList;
+
+	}
+	
 }

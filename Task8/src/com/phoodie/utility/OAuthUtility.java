@@ -42,7 +42,7 @@ public class OAuthUtility {
 	public static String requestTokenSecret;
 	private static final String HMAC_SHA1 = "HmacSHA1";
 	private static final String ENC = "UTF-8";
-	private static Base64 base64 = new Base64();
+	public static Base64 base64 = new Base64();
 	public static String groupId = "2492917@N24";
 
 	public static OAuthService service = new ServiceBuilder()

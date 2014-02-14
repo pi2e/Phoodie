@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.binary.StringUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
+
 import com.phoodie.utility.OAuthUtility;
 
 /**
@@ -50,7 +53,6 @@ public class AuthorizeAction extends Action {
 			String redirectUrl = "";
 			String output;
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
 				redirectUrl = output;
 			}// //Test the output - End
 			String[] parameters = redirectUrl.split("&");
@@ -58,7 +60,6 @@ public class AuthorizeAction extends Action {
 			Map<String, String> urlParam = new HashMap<String, String>();
 			for (String string : parameters) {
 				String[] paramValpair = string.split("=");
-				System.out.println("paramValpair"+paramValpair.length);
 				if(paramValpair.length > 1)
 				urlParam.put(paramValpair[0], paramValpair[1]);
 			}
@@ -71,7 +72,8 @@ public class AuthorizeAction extends Action {
 			}
 			request.getSession().setAttribute("oauth_token_secret", urlParam.get("oauth_token_secret"));
 			request.getSession().setAttribute("oauth_token", urlParam.get("oauth_token"));
-			request.getSession().setAttribute("user_nsid", urlParam.get("user_nsid"));
+			String userId = urlParam.get("user_nsid").replace("%40", "@");
+			request.getSession().setAttribute("user_nsid", userId);
 			return "allPhotos.do";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
