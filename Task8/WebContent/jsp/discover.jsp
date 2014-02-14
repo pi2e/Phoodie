@@ -14,9 +14,6 @@
 				</button>
 
 				<input type="hidden" id="type" name="type" value="">
-
-
-
 				<ul class="dropdown-menu pull-right">
 					<li><a href="#" onclick="javascript:setType('dish');">Dish</a></li>
 					<li><a href="#" onclick="javascript:setType('cuisine');">Cuisine</a></li>

@@ -17,7 +17,7 @@
 				<img class="feedPic" src="${photo.getURL() }">
 
 				<button type="button" onclick="fav(${photo.id}, this);"
-					class="btn btn-default buttons">
+					class="btn btn-default buttons ${photo.favorite == 'true' ? 'disabled' : ''}">
 					<span class="glyphicon glyphicon-heart-empty"></span> <span
 						class="buttonFont">Fav</span>
 				</button>

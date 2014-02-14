@@ -41,7 +41,7 @@ public class Photo {
 			throws InvalidKeyException, NoSuchAlgorithmException {
 
 		PhotoBean photo = new PhotoBean();
-		
+
 		try {
 			URL url = new URL(
 					"http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&oauth_consumer_key="
@@ -61,7 +61,6 @@ public class Photo {
 
 			while ((output = input.readLine()) != null) {
 				sb.append(output);
-				System.out.println(output);
 			}
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
@@ -84,12 +83,21 @@ public class Photo {
 					.getNodeValue());
 			photo.setFarm(list.item(0).getAttributes().getNamedItem("farm")
 					.getNodeValue());
+
+			Boolean fav = false;
+			if (list.item(0).getAttributes().getNamedItem("isfavorite")
+					.getNodeValue().equals("1")) {
+				fav = true;
+			}
+
+			photo.setFavorite(fav);
 			
 			String expression2 = "/rsp/photo/owner";
 			NodeList list2 = (NodeList) xPath.compile(expression2).evaluate(
 					document, XPathConstants.NODESET);
-			
-			photo.setOwnerName(list2.item(0).getAttributes().getNamedItem("username").getNodeValue());
+
+			photo.setOwnerName(list2.item(0).getAttributes()
+					.getNamedItem("username").getNodeValue());
 
 			con.disconnect();
 
@@ -109,16 +117,16 @@ public class Photo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return photo;
-		
+
 	}
-	
+
 	public static String getPhotoURL(HttpServletRequest request, String photoId)
 			throws InvalidKeyException, NoSuchAlgorithmException {
-		
+
 		String photoURL = "";
-		
+
 		try {
 			URL url = new URL(
 					"http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&oauth_consumer_key="
@@ -138,7 +146,6 @@ public class Photo {
 
 			while ((output = input.readLine()) != null) {
 				sb.append(output);
-				System.out.println(output);
 			}
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
@@ -174,9 +181,9 @@ public class Photo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return photoURL;
-		
+
 	}
 
 	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request)
@@ -222,23 +229,28 @@ public class Photo {
 				PhotoBean photo = new PhotoBean();
 				photo.setId(list.item(i).getAttributes().getNamedItem("id")
 						.getNodeValue());
-				photo.setOwner(list.item(i).getAttributes()
-						.getNamedItem("owner").getNodeValue());
-				photo.setSecret(list.item(i).getAttributes()
-						.getNamedItem("secret").getNodeValue());
-				photo.setServer(list.item(i).getAttributes()
-						.getNamedItem("server").getNodeValue());
-				photo.setFarm(list.item(i).getAttributes().getNamedItem("farm")
-						.getNodeValue());
-				photo.setTitle(list.item(i).getAttributes()
-						.getNamedItem("title").getNodeValue());
-				photo.setOwnerName(list.item(i).getAttributes()
-						.getNamedItem("ownername").getNodeValue());
-				
-				photo.setComments(getComments(request, list.item(i).getAttributes().getNamedItem("id")
-						.getNodeValue()));
-				
+
+				String photoId = list.item(i).getAttributes()
+						.getNamedItem("id").getNodeValue();
+				photo = getPhoto(request, photoId);
 				photoList.add(photo);
+
+				/*
+				 * photo.setSecret(list.item(i).getAttributes()
+				 * .getNamedItem("secret").getNodeValue());
+				 * photo.setServer(list.item(i).getAttributes()
+				 * .getNamedItem("server").getNodeValue());
+				 * photo.setFarm(list.item
+				 * (i).getAttributes().getNamedItem("farm") .getNodeValue());
+				 * photo.setTitle(list.item(i).getAttributes()
+				 * .getNamedItem("title").getNodeValue());
+				 * photo.setOwnerName(list.item(i).getAttributes()
+				 * .getNamedItem("ownername").getNodeValue());
+				 * 
+				 * photo.setComments(getComments(request,
+				 * list.item(i).getAttributes().getNamedItem("id")
+				 * .getNodeValue()));
+				 */
 			}
 
 			con.disconnect();
@@ -268,28 +280,29 @@ public class Photo {
 			NoSuchAlgorithmException {
 
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
-		
+
 		String[] strings = search.split("\\s");
-		
+
 		try {
 
 			String searchParameter = "";
 
 			if (type.equalsIgnoreCase("restaurant")) {
-				
-				for(int i=0; i<strings.length; i++) {
-					searchParameter += "&machine_tags=restaurant:" + strings[i] + "=";
+
+				for (int i = 0; i < strings.length; i++) {
+					searchParameter += "&machine_tags=restaurant:" + strings[i]
+							+ "=";
 				}
 
 			} else if (type.equalsIgnoreCase("dish")) {
-				
-				for(int i=0; i<strings.length; i++) {
+
+				for (int i = 0; i < strings.length; i++) {
 					searchParameter = "&machine_tags=dish:" + strings[i] + "=";
 				}
-				
+
 			} else if (type.equalsIgnoreCase("cuisine")) {
 
-				for(int i=0; i<strings.length; i++) {
+				for (int i = 0; i < strings.length; i++) {
 					searchParameter = "&machine_tags=cuisine:" + search + "=";
 				}
 			}
@@ -333,8 +346,11 @@ public class Photo {
 			for (int i = 0; i < list.getLength(); i++) {
 
 				PhotoBean photo = new PhotoBean();
-				photo.setId(list.item(i).getAttributes().getNamedItem("id")
-						.getNodeValue());
+				String photoId = list.item(i).getAttributes().getNamedItem("id").getNodeValue();
+				photo = getPhoto(request, photoId);
+				
+				
+				/*
 				photo.setOwner(list.item(i).getAttributes()
 						.getNamedItem("owner").getNodeValue());
 				photo.setSecret(list.item(i).getAttributes()
@@ -345,7 +361,8 @@ public class Photo {
 						.getNodeValue());
 				photo.setTitle(list.item(i).getAttributes()
 						.getNamedItem("title").getNodeValue());
-
+				*/
+				
 				photoList.add(photo);
 			}
 
@@ -385,28 +402,27 @@ public class Photo {
 				OAuthUtility.getAccessToken(httprequest), request);
 		request.send();
 	}
-	
-	public static void addfav(String photoId,
-			HttpServletRequest httprequest) {
+
+	public static void addfav(String photoId, HttpServletRequest httprequest) {
 
 		OAuthRequest request = new OAuthRequest(Verb.POST,
 				"http://api.flickr.com/services/rest");
-		request.addQuerystringParameter("method",
-				"flickr.favorites.add");
+		request.addQuerystringParameter("method", "flickr.favorites.add");
 		request.addQuerystringParameter("photo_id", photoId);
 
 		OAuthUtility.service.signRequest(
 				OAuthUtility.getAccessToken(httprequest), request);
 		request.send();
 	}
-	
-	public static List<CommentBean> getComments(HttpServletRequest request, String photoId)
-			throws InvalidKeyException, NoSuchAlgorithmException {
+
+	public static List<CommentBean> getComments(HttpServletRequest request,
+			String photoId) throws InvalidKeyException,
+			NoSuchAlgorithmException {
 
 		List<CommentBean> commentList = new ArrayList<CommentBean>();
 
 		try {
-			
+
 			URL url = new URL(
 					"http://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&oauth_consumer_key="
 							+ OAuthUtility.key
@@ -414,7 +430,7 @@ public class Photo {
 							+ photoId
 							+ "&oauth_token="
 							+ request.getSession().getAttribute("oauth_token"));
-			
+
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 
@@ -442,12 +458,12 @@ public class Photo {
 			for (int i = 0; i < list.getLength(); i++) {
 
 				CommentBean comment = new CommentBean();
-				comment.setUsername(list.item(i).getAttributes().getNamedItem("authorname")
-						.getNodeValue());
+				comment.setUsername(list.item(i).getAttributes()
+						.getNamedItem("authorname").getNodeValue());
 				comment.setComment(list.item(i).getFirstChild().getNodeValue());
 				commentList.add(comment);
 			}
-			
+
 			Collections.reverse(commentList);
 
 			con.disconnect();
@@ -472,20 +488,24 @@ public class Photo {
 		return commentList;
 	}
 
-	public static List<PhotoBean> getUserPhotos(HttpServletRequest httprequest) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+	public static List<PhotoBean> getUserPhotos(HttpServletRequest httprequest)
+			throws SAXException, IOException, ParserConfigurationException,
+			XPathExpressionException {
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
 		OAuthRequest request = new OAuthRequest(Verb.POST,
 				"http://api.flickr.com/services/rest");
-		request.addQuerystringParameter("method",
-				"flickr.people.getPhotos");
-		System.out.println("userid"+(String)httprequest.getSession().getAttribute("user_nsid"));
-		request.addQuerystringParameter("user_id", (String)httprequest.getSession().getAttribute("user_nsid"));
+		request.addQuerystringParameter("method", "flickr.people.getPhotos");
+		System.out.println("userid"
+				+ (String) httprequest.getSession().getAttribute("user_nsid"));
+		request.addQuerystringParameter("user_id", (String) httprequest
+				.getSession().getAttribute("user_nsid"));
 
 		OAuthUtility.service.signRequest(
 				OAuthUtility.getAccessToken(httprequest), request);
 		Response res = request.send();
-		
-		BufferedReader input = new BufferedReader(new InputStreamReader(res.getStream()));
+
+		BufferedReader input = new BufferedReader(new InputStreamReader(
+				res.getStream()));
 		StringBuilder sb = new StringBuilder();
 		String output = "";
 
@@ -502,35 +522,34 @@ public class Photo {
 		// parse xml with Xpath
 		XPath xPath = XPathFactory.newInstance().newXPath();
 		String expression = "/rsp/photos/photo";
-		NodeList list = (NodeList) xPath.compile(expression).evaluate(
-				document, XPathConstants.NODESET);
+		NodeList list = (NodeList) xPath.compile(expression).evaluate(document,
+				XPathConstants.NODESET);
 
 		for (int i = 0; i < list.getLength(); i++) {
 
 			PhotoBean photo = new PhotoBean();
 			photo.setId(list.item(i).getAttributes().getNamedItem("id")
 					.getNodeValue());
-			photo.setOwner(list.item(i).getAttributes()
-					.getNamedItem("owner").getNodeValue());
-			photo.setSecret(list.item(i).getAttributes()
-					.getNamedItem("secret").getNodeValue());
-			photo.setServer(list.item(i).getAttributes()
-					.getNamedItem("server").getNodeValue());
+			photo.setOwner(list.item(i).getAttributes().getNamedItem("owner")
+					.getNodeValue());
+			photo.setSecret(list.item(i).getAttributes().getNamedItem("secret")
+					.getNodeValue());
+			photo.setServer(list.item(i).getAttributes().getNamedItem("server")
+					.getNodeValue());
 			photo.setFarm(list.item(i).getAttributes().getNamedItem("farm")
 					.getNodeValue());
-			photo.setTitle(list.item(i).getAttributes()
-					.getNamedItem("title").getNodeValue());
+			photo.setTitle(list.item(i).getAttributes().getNamedItem("title")
+					.getNodeValue());
 
 			photoList.add(photo);
 		}
-		
-		
+
 		Collections.reverse(photoList);
 
-		//con.disconnect();
-		//System.out.println(res.getBody());
+		// con.disconnect();
+		// System.out.println(res.getBody());
 		return photoList;
 
 	}
-	
+
 }

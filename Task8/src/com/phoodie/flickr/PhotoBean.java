@@ -11,6 +11,7 @@ public class PhotoBean {
 	private String title;
 	private String ownerName;
 	private Boolean mustTry;
+	private Boolean favorite;
 	private List<CommentBean> comments;
 	
 	public String getOwnerName() {
@@ -77,5 +78,11 @@ public class PhotoBean {
 	}
 	public void setComments(List<CommentBean> comments) {
 		this.comments = comments;
+	}
+	public Boolean getFavorite() {
+		return favorite;
+	}
+	public void setFavorite(Boolean favorite) {
+		this.favorite = favorite;
 	}
 }
