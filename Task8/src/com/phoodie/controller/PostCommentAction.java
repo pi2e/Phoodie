@@ -30,6 +30,9 @@ public class PostCommentAction extends Action {
 		Photo.postComment(photoId, comment, request);
 		
 		} else if (request.getParameter("type").equalsIgnoreCase("tweet")) {
+			
+			TwitterAPI twitter = new TwitterAPI(request);
+			twitter.update(request.getParameter("comment").toString());
 			//TwitterAPI.updateapi
 		}
 		
