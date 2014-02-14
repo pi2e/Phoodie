@@ -268,23 +268,30 @@ public class Photo {
 			NoSuchAlgorithmException {
 
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
-
+		
+		String[] strings = search.split("\\s");
+		
 		try {
 
 			String searchParameter = "";
 
 			if (type.equalsIgnoreCase("restaurant")) {
-
-				searchParameter = "restaurant:name=" + search;
+				
+				for(int i=0; i<strings.length; i++) {
+					searchParameter += "&machine_tags=restaurant:" + strings[i] + "=";
+				}
 
 			} else if (type.equalsIgnoreCase("dish")) {
-
-				searchParameter = "dish:name=" + search;
-
+				
+				for(int i=0; i<strings.length; i++) {
+					searchParameter = "&machine_tags=dish:" + strings[i] + "=";
+				}
+				
 			} else if (type.equalsIgnoreCase("cuisine")) {
 
-				searchParameter = "cuisine:id=" + search;
-
+				for(int i=0; i<strings.length; i++) {
+					searchParameter = "&machine_tags=cuisine:" + search + "=";
+				}
 			}
 
 			URL url = new URL(
@@ -292,7 +299,6 @@ public class Photo {
 							+ OAuthUtility.key
 							+ "&group_id="
 							+ OAuthUtility.groupId
-							+ "&machine_tags="
 							+ searchParameter
 							+ "&oauth_token="
 							+ request.getSession().getAttribute("oauth_token"));
@@ -309,6 +315,7 @@ public class Photo {
 
 			while ((output = input.readLine()) != null) {
 				sb.append(output);
+				System.out.println(output);
 			}
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
