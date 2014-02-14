@@ -32,7 +32,7 @@ public class PostCommentAction extends Action {
 		} else if (request.getParameter("type").equalsIgnoreCase("tweet")) {
 			
 			TwitterAPI twitter = new TwitterAPI(request);
-			twitter.update(request.getParameter("comment").toString());
+			twitter.update(request.getParameter("comment").toString() + " " + "http://www.flickr.com/photos/waritta/12445172965");
 			//TwitterAPI.updateapi
 		}
 		
