@@ -16,7 +16,7 @@
 				</div>
 				<img class="feedPic" src="${photo.getURL() }">
 
-				<button type="button" onclick="ready();"
+				<button type="button" onclick="fav(${photo.id});"
 					class="btn btn-default buttons">
 					<span class="glyphicon glyphicon-heart-empty"></span> <span
 						class="buttonFont">Fav</span>
@@ -88,6 +88,12 @@
 	</c:forEach>
 
 	<script>
+	function fav(photoId) {
+		var url = "./fav.do?photoid=" + photoId;
+		$.get(url);
+		alert("fav it!");
+		
+	}
 		function submitPage(photoId, type) {
 			
 			var comm = document.getElementById("commentForm" + photoId);

@@ -46,6 +46,7 @@ public class Controller extends HttpServlet {
 		Action.add(new MustTryAction(model));
 		Action.add(new GetUserPhotosAction());
 		Action.add(new ViewPhoodListAction(model));
+		Action.add(new FavAction());
 		
 	}
 
@@ -90,6 +91,10 @@ public class Controller extends HttpServlet {
 		if (nextPage == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND,
 					request.getServletPath());
+			return;
+		}
+		
+		if (nextPage.equals("ajax")) {
 			return;
 		}
 
