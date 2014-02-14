@@ -5,14 +5,16 @@ import org.genericdao.PrimaryKey;
 @PrimaryKey("userId")
 public class MustTry {
 
-	private int userId;
+	private String userId;
 	private String photoId;
 
-	public int getUserId() {
+	
+
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

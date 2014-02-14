@@ -13,6 +13,7 @@ public class MustTryDAO extends GenericDAO<MustTry> {
 	public MustTryDAO(ConnectionPool cp, String tableName) throws DAOException {
 
 		super(MustTry.class, tableName, cp);
+		
 	}
 	
 	
