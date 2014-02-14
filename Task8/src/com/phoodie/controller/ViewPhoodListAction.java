@@ -42,15 +42,20 @@ public class ViewPhoodListAction extends Action {
 			MustTry[] mustTryList = mustTryDAO.getUserFavorite(request.getSession().getAttribute("user_nsid").toString());
 			
 			//list = Photo.getGroupPhotos(request);
-			if(mustTryList != null || mustTryList.length > 0) {
-			
-				for(int i=0; i<mustTryList.length; i++) {
-					PhotoBean photo = Photo.getPhoto(request, mustTryList[i].getPhotoId());
-					photo.setMustTry(true);
-					list.add(photo);
-				}
-			
+			if(mustTryList == null || mustTryList.length <= 0) {
+				
+				request.setAttribute("message", "Click the Must Try button to add pics to your list!");
+				return "mustTry.jsp";
+				
 			}
+			
+			for(int i=0; i<mustTryList.length; i++) {
+				PhotoBean photo = Photo.getPhoto(request, mustTryList[i].getPhotoId());
+				photo.setMustTry(true);
+				list.add(photo);
+			}
+		
+			
 			request.setAttribute("photos", list);
 			
 		} catch (InvalidKeyException e) {
@@ -65,7 +70,7 @@ public class ViewPhoodListAction extends Action {
 		}
 		
 		
-		return "../jsp/home.jsp";
+		return "mustTry.jsp";
 	}
 
 }
