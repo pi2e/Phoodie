@@ -4,17 +4,13 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +22,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URIUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
-import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -45,7 +35,83 @@ public class Photo {
 	// PHOODIE groupId
 	// private static String groupId = "2492917@N24";
 	// private static String apiKey = "2eafd8e1dc8f99a4e6063c2c86acc6bb";
-	private static final String ENC = "UTF-8";
+
+	public static PhotoBean getPhoto(HttpServletRequest request, String photoId)
+			throws InvalidKeyException, NoSuchAlgorithmException {
+
+		PhotoBean photo = new PhotoBean();
+		
+		try {
+			URL url = new URL(
+					"http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&oauth_consumer_key="
+							+ OAuthUtility.key
+							+ "&photo_id="
+							+ photoId
+							+ "&oauth_token="
+							+ request.getSession().getAttribute("oauth_token"));
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+
+			BufferedReader input = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String output = "";
+
+			while ((output = input.readLine()) != null) {
+				sb.append(output);
+				System.out.println(output);
+			}
+
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			Document document = builder.parse(new ByteArrayInputStream(sb
+					.toString().getBytes()));
+
+			// parse xml with Xpath
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			String expression = "/rsp/photo";
+			NodeList list = (NodeList) xPath.compile(expression).evaluate(
+					document, XPathConstants.NODESET);
+
+			photo.setId(list.item(0).getAttributes().getNamedItem("id")
+					.getNodeValue());
+			photo.setSecret(list.item(0).getAttributes().getNamedItem("secret")
+					.getNodeValue());
+			photo.setServer(list.item(0).getAttributes().getNamedItem("server")
+					.getNodeValue());
+			photo.setFarm(list.item(0).getAttributes().getNamedItem("farm")
+					.getNodeValue());
+			
+			String expression2 = "/rsp/photo/owner";
+			NodeList list2 = (NodeList) xPath.compile(expression2).evaluate(
+					document, XPathConstants.NODESET);
+			
+			photo.setOwnerName(list2.item(0).getAttributes().getNamedItem("username").getNodeValue());
+
+			con.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return photo;
+		
+	}
 
 	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request)
 			throws InvalidKeyException, NoSuchAlgorithmException {
@@ -102,7 +168,10 @@ public class Photo {
 						.getNamedItem("title").getNodeValue());
 				photo.setOwnerName(list.item(i).getAttributes()
 						.getNamedItem("ownername").getNodeValue());
-
+				
+				photo.setComments(getComments(request, list.item(i).getAttributes().getNamedItem("id")
+						.getNodeValue()));
+				
 				photoList.add(photo);
 			}
 
@@ -229,7 +298,6 @@ public class Photo {
 		return photoList;
 	}
 
-	
 	public static void postComment(String photoId, String comment,
 			HttpServletRequest httprequest) {
 
@@ -245,19 +313,76 @@ public class Photo {
 		request.send();
 	}
 	
-	public static void addToFavorite(String photoId,
-			HttpServletRequest httprequest) {
-		
-		OAuthRequest request = new OAuthRequest(Verb.POST,
-				"http://api.flickr.com/services/rest");
-		request.addQuerystringParameter("method",
-				"flickr.photos.favorites.add");
-		request.addQuerystringParameter("photo_id", photoId);
+	public static List<CommentBean> getComments(HttpServletRequest request, String photoId)
+			throws InvalidKeyException, NoSuchAlgorithmException {
 
-		OAuthUtility.service.signRequest(
-				OAuthUtility.getAccessToken(httprequest), request);
-		request.send();
-		
+		List<CommentBean> commentList = new ArrayList<CommentBean>();
+
+		try {
+			
+			URL url = new URL(
+					"http://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&oauth_consumer_key="
+							+ OAuthUtility.key
+							+ "&photo_id="
+							+ photoId
+							+ "&oauth_token="
+							+ request.getSession().getAttribute("oauth_token"));
+			
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+
+			BufferedReader input = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String output = "";
+
+			while ((output = input.readLine()) != null) {
+				sb.append(output);
+			}
+
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			Document document = builder.parse(new ByteArrayInputStream(sb
+					.toString().getBytes()));
+
+			// parse xml with Xpath
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			String expression = "/rsp/comments/comment";
+			NodeList list = (NodeList) xPath.compile(expression).evaluate(
+					document, XPathConstants.NODESET);
+
+			for (int i = 0; i < list.getLength(); i++) {
+
+				CommentBean comment = new CommentBean();
+				comment.setUsername(list.item(i).getAttributes().getNamedItem("authorname")
+						.getNodeValue());
+				comment.setComment(list.item(i).getFirstChild().getNodeValue());
+				commentList.add(comment);
+			}
+			
+			Collections.reverse(commentList);
+
+			con.disconnect();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return commentList;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.phoodie.flickr;
 
+import java.util.List;
+
 public class PhotoBean {
 	private String id;
 	private String owner;
@@ -8,6 +10,9 @@ public class PhotoBean {
 	private String farm;
 	private String title;
 	private String ownerName;
+	private Boolean mustTry;
+	private List<CommentBean> comments;
+	
 	public String getOwnerName() {
 		return ownerName;
 	}
@@ -60,5 +65,17 @@ public class PhotoBean {
 	}
 	public String getURL() {
 		return "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + ".jpg";
+	}
+	public Boolean getMustTry() {
+		return mustTry;
+	}
+	public void setMustTry(Boolean mustTry) {
+		this.mustTry = mustTry;
+	}
+	public List<CommentBean> getComments() {
+		return comments;
+	}
+	public void setComments(List<CommentBean> comments) {
+		this.comments = comments;
 	}
 }

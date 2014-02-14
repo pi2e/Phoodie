@@ -32,7 +32,7 @@ public class Controller extends HttpServlet {
 	public void init() throws ServletException {
 		Model model = new Model(getServletConfig());
 		Action.add(new HomePageAction());
-		Action.add(new AllPhotosAction());
+		Action.add(new AllPhotosAction(model));
 		Action.add(new LoginAction());
 		Action.add(new AuthorizeAction());
 		Action.add(new TwitterLoginAction());
@@ -43,6 +43,8 @@ public class Controller extends HttpServlet {
 		Action.add(new AnalyticsAction());
 		Action.add(new AnalyticsAction2());
 		Action.add(new AnalyticsAction3());
+		Action.add(new MustTryAction(model));
+		Action.add(new ViewPhoodListAction(model));
 		
 	}
 

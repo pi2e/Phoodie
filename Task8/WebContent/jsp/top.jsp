@@ -48,9 +48,9 @@
 						<a href="discover.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-search"></span><span class="hidden-xs">
 						Search</span></a>
-						<a href="analytics.do" class="navbar-icon hidden-xs"><span
-					class="glyphicon glyphicon-stats"></span><span class="hidden-xs">
-						Analytics</span></a>
+						<a href="viewPhoodList.do" class="navbar-icon hidden-xs"><span
+					class="glyphicon glyphicon-star"></span><span class="hidden-xs">
+						Phood List</span></a>
 			</div>
 
 			<div class="navbar-collapse collapse navbar-right">
@@ -59,6 +59,8 @@
 						data-toggle="dropdown"> <span class="glyphicon glyphicon-cog"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="twitterLogin.do">Twitter</a></li>
+							<li><a href="analytics.do"><span
+					class="glyphicon glyphicon-stats"></span> Analytics</a></li>
 							<li><a href="logout.do">Logout</a></li>
 						</ul></li>
 				</ul>
