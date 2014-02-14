@@ -5,6 +5,7 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import com.phoodie.databean.MustTry;
 
@@ -16,6 +17,18 @@ public class MustTryDAO extends GenericDAO<MustTry> {
 		
 	}
 	
+	public void create(MustTry musttry) throws RollbackException {
+
+		try {
+			Transaction.begin();
+			createAutoIncrement(musttry);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+
+	}
 	
 	public MustTry[] getUserFavorite(String userid) throws DAOException {
 		
