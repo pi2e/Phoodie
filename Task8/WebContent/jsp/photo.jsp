@@ -90,7 +90,6 @@
 		var url = "./fav.do?photoid=" + photoId;
 		$.get(url);
 		button.className = "btn btn-default buttons disabled";
-		alert("fav it!");
 		
 	}
 	
@@ -98,7 +97,6 @@
 		var url = "./mustTry.do?photoId=" + photoId;
 		$.get(url);
 		button.className = "btn btn-default buttons disabled";
-		alert("try it!");
 		
 	}
 		function submitPage(photoId, type) {
