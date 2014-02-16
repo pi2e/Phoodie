@@ -2,6 +2,8 @@ package com.phoodie.flickr;
 
 import java.util.List;
 
+import com.phoodie.twitter.Statuse;
+
 public class PhotoBean {
 	private String id;
 	private String owner;
@@ -13,7 +15,14 @@ public class PhotoBean {
 	private Boolean mustTry;
 	private Boolean favorite;
 	private List<CommentBean> comments;
+	private List<Statuse> statuses;
 	
+	public List<Statuse> getStatuses() {
+		return statuses;
+	}
+	public void setStatuses(List<Statuse> statuses) {
+		this.statuses = statuses;
+	}
 	public String getOwnerName() {
 		return ownerName;
 	}
