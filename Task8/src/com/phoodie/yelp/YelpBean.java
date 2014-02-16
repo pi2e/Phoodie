@@ -1,6 +1,5 @@
 package com.phoodie.yelp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class YelpBean {

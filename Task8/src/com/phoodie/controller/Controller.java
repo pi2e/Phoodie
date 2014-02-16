@@ -48,6 +48,8 @@ public class Controller extends HttpServlet {
 		Action.add(new ViewPhoodListAction(model));
 		Action.add(new FavAction());
 		Action.add(new PhotoAction(model));
+		Action.add(new GetYelpLocationAction());
+		Action.add(new AddPhotoToGroupAction());
 		
 	}
 

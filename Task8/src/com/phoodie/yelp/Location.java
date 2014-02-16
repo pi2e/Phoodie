@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Location {
 	private String city;
-	private ArrayList<String> display_address;
 	private ArrayList<String> neighborhoods;
 	private String postal_code;
 	private String country_code;
@@ -14,7 +13,7 @@ public class Location {
 	
 	
 	public ArrayList<String> getAddress() {
-		return display_address;
+		return address;
 	}
 	
 	public String getCity() {

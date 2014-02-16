@@ -26,6 +26,7 @@ public class GetUserPhotosAction extends Action {
 			try {
 				list = Photo.getUserPhotos(request);
 				
+				
 			} catch (XPathExpressionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -554,5 +554,21 @@ public class Photo {
 		return photoList;
 
 	}
+	
+
+	public static void postPhotoToGroup(String photoId, 
+			HttpServletRequest httprequest) {
+
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.photos.comments.addComment");
+		request.addQuerystringParameter("photo_id", photoId);
+		request.addQuerystringParameter("photo_id", photoId);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		request.send();
+	}
 
 }

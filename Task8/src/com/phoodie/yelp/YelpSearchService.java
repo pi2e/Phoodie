@@ -24,12 +24,12 @@ import com.phoodie.yelp.*;
 /**
  * Example for accessing the Yelp API.
  */
-public class YelpSerachAction {
+public class YelpSearchService {
 
   OAuthService service;
   Token accessToken;
   	
-  public YelpSerachAction () {
+  public YelpSearchService () {
 	  
   }
   /**
@@ -42,7 +42,7 @@ public class YelpSerachAction {
    * @param token Token
    * @param tokenSecret Token secret
    */
-  public YelpSerachAction(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+  public YelpSearchService(String consumerKey, String consumerSecret, String token, String tokenSecret) {
     this.service = new ServiceBuilder().provider(YelpApi2.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
     this.accessToken = new Token(token, tokenSecret);
   }
@@ -90,7 +90,7 @@ public class YelpSerachAction {
 	    String consumerSecret = "KD4usW-bXLaqn5DQUUTcfTTll9Q";
 	    String token = "qtqetD1UjBcvMXZ7buOKFdpb86XcicSF";
 	    String tokenSecret = "f9N-5ybZJkDsOC1wWCfMJjLIO6c";
-	    YelpSerachAction yelp = new YelpSerachAction(consumerKey, consumerSecret, token, tokenSecret);
+	    YelpSearchService yelp = new YelpSearchService(consumerKey, consumerSecret, token, tokenSecret);
 	    String response = yelp.search(name, loca);
 	    System.out.println(response);
 	    Gson gson = new Gson(); 
@@ -105,12 +105,12 @@ public class YelpSerachAction {
     String token = "qtqetD1UjBcvMXZ7buOKFdpb86XcicSF";
     String tokenSecret = "f9N-5ybZJkDsOC1wWCfMJjLIO6c";
 
-    YelpSerachAction yelp = new YelpSerachAction(consumerKey, consumerSecret, token, tokenSecret);
+    YelpSearchService yelp = new YelpSearchService(consumerKey, consumerSecret, token, tokenSecret);
  //   String response = yelp.search("five guys burgers", 40.44278, -79.956697);
     String response = yelp.search("chinese", "pittsburgh");
     System.out.println(response);
     Gson gson = new Gson(); 
-    YelpBean yelpResult = gson.fromJson(response, YelpBean.class); 
+    YelpBean yelpResult = gson.fromJson(response, YelpBean.class);
     for (int i = 0; i < yelpResult.getBiz().size(); i++) {
     	System.out.println(yelpResult.getBiz().get(i).getName());
         System.out.println(yelpResult.getBiz().get(i).getLocation().getAddress());
