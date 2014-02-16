@@ -50,6 +50,7 @@ public class Controller extends HttpServlet {
 		Action.add(new PhotoAction(model));
 		Action.add(new GetYelpLocationAction());
 		Action.add(new AddPhotoToGroupAction());
+		Action.add(new JoinGroupAction());
 		
 	}
 
