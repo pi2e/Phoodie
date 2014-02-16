@@ -8,7 +8,7 @@ public class JoinGroupAction extends Action {
 
 	@Override
 	public String getName() {
-		return "JoinGroup.do";
+		return "joinGroup.do";
 	}
 
 	@Override

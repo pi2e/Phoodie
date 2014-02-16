@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
 		Action.add(new DiscoverAction());
 		Action.add(new LogoutAction());
 		Action.add(new PostCommentAction());
-		Action.add(new AnalyticsAction());
+		Action.add(new AnalyticsAction(model));
 		Action.add(new AnalyticsAction2());
 		Action.add(new AnalyticsAction3());
 		Action.add(new MustTryAction(model));
