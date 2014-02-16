@@ -38,7 +38,7 @@
 						class="appHead" style="font-size:34px"> Phoodie</span></span>
 				</h3>
 				<br/>
-				<span class="appMenu" style="font-size:22px">where<br/>photography + food<br/>meats.</span>
+				<span class="appMenu" style="font-size:22px">Please join the Phoodie Flickr group to access our application</span>
 				<br/><br/><br/>
 				<form method="post" action="joinGroup.do">
 					<input type="hidden" id="login" name="login" value="login" />

@@ -55,8 +55,8 @@ public class Group {
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
 			Document document;
 
-			document = builder.parse(new ByteArrayInputStream(sb
-					.toString().getBytes()));
+			document = builder.parse(new ByteArrayInputStream(sb.toString()
+					.getBytes()));
 
 			// parse xml with Xpath
 			XPath xPath = XPathFactory.newInstance().newXPath();
@@ -64,9 +64,9 @@ public class Group {
 			NodeList list = (NodeList) xPath.compile(expression).evaluate(
 					document, XPathConstants.NODESET);
 
-
-			String result = list.item(0).getAttributes().getNamedItem("is_member").getNodeValue();
-			if(result.equalsIgnoreCase("1")) {
+			String result = list.item(0).getAttributes()
+					.getNamedItem("is_member").getNodeValue();
+			if (result.equalsIgnoreCase("1")) {
 				isMember = true;
 			}
 
@@ -86,5 +86,18 @@ public class Group {
 
 		System.out.println(isMember);
 		return isMember;
+	}
+
+	public static void joinGroup(HttpServletRequest httprequest) {
+
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method", "flickr.groups.join");
+		request.addQuerystringParameter("group_id", OAuthUtility.groupId);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+
+		request.send();
 	}
 }
