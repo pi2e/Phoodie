@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 
+import com.phoodie.flickr.Group;
 import com.phoodie.utility.OAuthUtility;
 
 /**
@@ -74,6 +75,11 @@ public class AuthorizeAction extends Action {
 			request.getSession().setAttribute("oauth_token", urlParam.get("oauth_token"));
 			String userId = urlParam.get("user_nsid").replace("%40", "@");
 			request.getSession().setAttribute("user_nsid", userId);
+			
+			if(!Group.isMember(request)) {
+				return "joinGroup.jsp";
+			}
+			
 			return "allPhotos.do";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

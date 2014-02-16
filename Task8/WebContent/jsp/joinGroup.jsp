@@ -40,10 +40,10 @@
 				<br/>
 				<span class="appMenu" style="font-size:22px">where<br/>photography + food<br/>meats.</span>
 				<br/><br/><br/>
-				<form method="post" action="login.do">
+				<form method="post" action="joinGroup.do">
 					<input type="hidden" id="login" name="login" value="login" />
 					<button type="submit" class="btn btn-default">
-					<span class="appMenu">Log in with</span>&nbsp;
+					<span class="appMenu">Join Phoodie group</span>&nbsp;
 						<img class="flickrButton" src="./img/Flickr_logo.png"/>
 					</button>
 				</form>
