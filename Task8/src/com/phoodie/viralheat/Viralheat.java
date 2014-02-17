@@ -19,7 +19,7 @@ public class Viralheat {
 	
 	private final String USER_AGENT = "Mozilla/5.0";
 
-	private SentiBean sendGet(String key) throws Exception {
+	public SentiBean sendGet(String key) throws Exception {
 		key = key.replaceAll(" ", "%20");
 		String url = "https://viralheat.com/api/sentiment/review.json?text=" + key +"&api_key=tgNwAde42TrbkpMKqzwk";
 		URL obj = new URL(url);

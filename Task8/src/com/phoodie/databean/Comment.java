@@ -4,7 +4,7 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("commentId")
 public class Comment {
-	String commentId;
+	int commentId;
 	String mood;
 	double moodProb;
 	String photoId;
@@ -14,11 +14,12 @@ public class Comment {
 	String lead;
 	double leadProb;
 
-	public String getCommentId() {
+
+	public int getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(String commentId) {
+	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
 
