@@ -39,7 +39,7 @@ public class Controller extends HttpServlet {
 		Action.add(new TwitterOAuthAction());
 		Action.add(new DiscoverAction());
 		Action.add(new LogoutAction());
-		Action.add(new PostCommentAction());
+		Action.add(new PostCommentAction(model));
 		Action.add(new AnalyticsAction(model));
 		Action.add(new AnalyticsAction2(model));
 		Action.add(new AnalyticsAction3(model));
