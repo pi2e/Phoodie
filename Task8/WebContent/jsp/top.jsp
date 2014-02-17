@@ -16,6 +16,7 @@
 <!-- Bootstrap core CSS -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <script src="bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
 <!-- Custom styles for this template -->
 
 <!-- Just for debugging purposes. Don't actually copy this line! -->
