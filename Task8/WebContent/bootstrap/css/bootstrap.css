@@ -5881,8 +5881,29 @@ td.visible-print {
 	padding-bottom: 25px;
 }
 
+.gridRow {
+	max-width: 100%;
+}
+
+
+.gridThumb {
+	min-height: 250px;
+	margin: auto;
+	padding-bottom: 10px;
+}
+
+.gridRow {
+	max-height: 250px;
+}
+
+
 .feedPic {
 	padding-bottom: 2px;
+}
+
+.gridPic {
+	padding-bottom: 2px;
+	max-height: 200px;
 }
 
 .buttonFont {

@@ -31,27 +31,15 @@
 </style>
 
 <div class="container appMenu">
-
+<div class="row gridRow">
 	<c:forEach var="photo" items="${photoList}" varStatus="status">
-		<div class="row">
-			<div class="thumbnail appRow">
-				<span class="text-left">${photo.getOwnerName() } &nbsp;&nbsp;</span>
-				<a href="">Add to Group</a>
-				<div style="float: right">
-					<span class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span>
-				</div>
-				<img class="feedPic" src="${photo.getURL() }">
-
-
-
-
+		<div class="col-xs-3 gridThumb">
+			<div class="thumbnail gridThumb">
+				<img class="gridPic" src="${photo.getURL() }">
 				<button type="button" class="btn btn-default buttons"
 					data-toggle="modal" data-target="#myModal${photo.id }">
-					<span class="glyphicon glyphicon-comment"></span> <span
-						class="buttonFont">Add to Group</span>
+					<span class="glyphicon glyphicon-plus"></span> <span
+						class="buttonFont">Add</span>
 				</button>
 
 				<!-- Modal -->
@@ -67,14 +55,12 @@
 							<div class="modal-body">
 								<form action="postToGroup.do" method="post"
 									id="groupForm${photo.id}" name="groupForm">
-									Food
-									<input type="text" name="dish" class="form-control"
+									Food <input type="text" name="dish" class="form-control"
 										placeholder="Dish Name..." onchange=""> <br /> <input
-										id="cuisine" type="hidden" name="cuisine" /> <input type="hidden"
-										name="photoId" value="${photo.id }"> <input
+										id="cuisine" type="hidden" name="cuisine" /> <input
+										type="hidden" name="photoId" value="${photo.id }"> <input
 										type="hidden" name="photoId" value="${photo.id }">
-									Place
-									<input type="text" id="inputString"
+									Place <input type="text" id="inputString"
 										onkeyup="lookup(this.value);" name="restaurant"
 										class="form-control" placeholder="Restaurant Name,City..">
 									<br />
@@ -84,58 +70,57 @@
 										<div class="suggestionList" id="autoSuggestionsList"></div>
 									</div>
 									<input type="hidden" name="photoId" value="${photo.id }" />
-							</div>
-							<div class="modal-footer">
+
+									<div class="modal-footer">
 
 
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Cancel</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Cancel</button>
 
-								<button type="button" class="btn btn-primary"
-									onclick="javascript:submitPage('${photo.id}');">Post</button>
+										<button type="button" class="btn btn-primary"
+											onclick="javascript:submitPage('${photo.id}');">Post</button>
+									</div>
 								</form>
-
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 		</div>
 	</c:forEach>
-
-	<script>
-		function submitPage(photoId) {
-
-			var comm = document.getElementById("groupForm" + photoId);
-
-			if (comm.dish.value.trim() == '') {
-				return;
-			} else if (comm.restaurant.value.trim() == '') {
-				return;
-			}
-			else{
-				comm.submit();
-			}
-		}
-
-		function lookup(inputString) {
-			if (inputString.length == 0) {
-				$('#suggestions').hide();
-			} else {
-				$.post("searchYelp.do", {
-					queryString : "" + inputString + ""
-				}, function(data) {
-
-					if (data.length > 0) {
-						$('#suggestions').show();
-						$('#autoSuggestionsList').html(data);
-					}
-				});
-			}
-		}
-	</script>
 </div>
+</div>
+
+<script>
+	function submitPage(photoId) {
+
+		var comm = document.getElementById("groupForm" + photoId);
+
+		if (comm.dish.value.trim() == '') {
+			return;
+		} else if (comm.restaurant.value.trim() == '') {
+			return;
+		} else {
+			comm.submit();
+		}
+	}
+
+	function lookup(inputString) {
+		if (inputString.length == 0) {
+			$('#suggestions').hide();
+		} else {
+			$.post("searchYelp.do", {
+				queryString : "" + inputString + ""
+			}, function(data) {
+
+				if (data.length > 0) {
+					$('#suggestions').show();
+					$('#autoSuggestionsList').html(data);
+				}
+			});
+		}
+	}
+</script>
 
 <jsp:include page="bottom.jsp" />

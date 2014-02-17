@@ -43,7 +43,7 @@
 							Phoodie</span></span></a> <a href="allPhotos.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-home"></span><span class="hidden-xs">
 						Home</span></a> <a href="userPhotos.do" class="navbar-icon"><span
-					class="glyphicon glyphicon-fire"></span><span class="hidden-xs">
+					class="glyphicon glyphicon-camera"></span><span class="hidden-xs">
 						Your Photos</span></a>
 						<a href="discover.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-search"></span><span class="hidden-xs">
