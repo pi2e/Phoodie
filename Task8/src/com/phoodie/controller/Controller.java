@@ -51,6 +51,7 @@ public class Controller extends HttpServlet {
 		Action.add(new GetYelpLocationAction());
 		Action.add(new AddPhotoToGroupAction());
 		Action.add(new JoinGroupAction());
+		Action.add(new RemoveFoodAction(model));
 		
 	}
 
