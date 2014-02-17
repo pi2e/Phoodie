@@ -1,5 +1,7 @@
 package com.phoodie.databean;
 
+import java.util.Date;
+
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("commentId")
@@ -13,6 +15,7 @@ public class Comment {
 	String dish;
 	String lead;
 	double leadProb;
+	Date date;
 
 	public String getCommentId() {
 		return commentId;
@@ -85,6 +88,14 @@ public class Comment {
 
 	public void setLeadProb(double leadProb) {
 		this.leadProb = leadProb;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 
