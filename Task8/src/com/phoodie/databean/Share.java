@@ -1,5 +1,7 @@
 package com.phoodie.databean;
 
+import java.util.Date;
+
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("photoId")
@@ -10,6 +12,7 @@ public class Share {
 	String dish;
 	int tweet;
 	int favorite;
+	Date date;
 
 	public String getPhotoId() {
 		return photoId;
@@ -57,6 +60,14 @@ public class Share {
 
 	public void setFavorite(int favorite) {
 		this.favorite = favorite;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

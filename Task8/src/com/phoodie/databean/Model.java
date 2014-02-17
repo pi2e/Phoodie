@@ -7,9 +7,12 @@ import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 
 import com.phoodie.Dao.CommentDAO;
+import com.phoodie.Dao.CuisineByDateDAO;
 import com.phoodie.Dao.CuisineDAO;
 import com.phoodie.Dao.CuisineRankDAO;
+import com.phoodie.Dao.DishByDateDAO;
 import com.phoodie.Dao.DishRankDAO;
+import com.phoodie.Dao.RestaurantByDateDAO;
 import com.phoodie.Dao.RestaurantRankDAO;
 import com.phoodie.Dao.ShareDAO;
 import com.phoodie.Dao.MustTryDAO;
@@ -23,9 +26,11 @@ public class Model {
 	private RestaurantRankDAO restaurantRankDAO;
 	private CuisineRankDAO cuisineRankDAO;
 	private DishRankDAO dishRankDAO;
+	private RestaurantByDateDAO restaurantByDateDAO;
+	private DishByDateDAO dishByDateDAO;
+	private CuisineByDateDAO cuisineByDateDAO;
 	
 	
-
 	public MustTryDAO getMustTryDAO() {
 		return MustTryDAO;
 	}
@@ -86,6 +91,30 @@ public class Model {
 		this.dishRankDAO = dishRankDAO;
 	}
 
+	public RestaurantByDateDAO getRestaurantByDateDAO() {
+		return restaurantByDateDAO;
+	}
+
+	public void setRestaurantByDateDAO(RestaurantByDateDAO restaurantByDateDAO) {
+		this.restaurantByDateDAO = restaurantByDateDAO;
+	}
+
+	public DishByDateDAO getDishByDateDAO() {
+		return dishByDateDAO;
+	}
+
+	public void setDishByDateDAO(DishByDateDAO dishByDateDAO) {
+		this.dishByDateDAO = dishByDateDAO;
+	}
+
+	public CuisineByDateDAO getCuisineByDateDAO() {
+		return cuisineByDateDAO;
+	}
+
+	public void setCuisineByDateDAO(CuisineByDateDAO cuisineByDateDAO) {
+		this.cuisineByDateDAO = cuisineByDateDAO;
+	}
+
 	public Model(ServletConfig servletConfig) throws ServletException {
 
 		try {
@@ -100,6 +129,9 @@ public class Model {
 			restaurantRankDAO = new RestaurantRankDAO(cp,"RESTAURANTRANK"); 
 			cuisineRankDAO = new CuisineRankDAO(cp,"CUISINERANK");
 			dishRankDAO = new DishRankDAO(cp,"DISHRANK");
+			restaurantByDateDAO = new RestaurantByDateDAO(cp,"RESTAURANTBYDATE");
+			dishByDateDAO = new DishByDateDAO(cp,"DISHBYDATE");
+			cuisineByDateDAO = new CuisineByDateDAO(cp,"CUISINEBYDATE");
 			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block

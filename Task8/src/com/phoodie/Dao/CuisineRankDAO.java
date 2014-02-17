@@ -67,6 +67,23 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 		return cuisineRanks;
 	}
 
+	public CuisineRank getRankByMood(int cuisineId) throws DAOException {
+
+		CuisineRank[] cuisineRanks;
+
+		try {
+			cuisineRanks = match(MatchArg.equals("cuisineId", cuisineId));
+
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+		if (cuisineRanks.length != 0) {
+			return cuisineRanks[0];
+		} else {
+			return null;
+		}
+	}
+
 	public CuisineRank[] getRankByLead() throws DAOException {
 
 		CuisineRank[] cuisineRanks;
