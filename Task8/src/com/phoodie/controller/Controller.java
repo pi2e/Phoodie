@@ -41,8 +41,8 @@ public class Controller extends HttpServlet {
 		Action.add(new LogoutAction());
 		Action.add(new PostCommentAction());
 		Action.add(new AnalyticsAction(model));
-		Action.add(new AnalyticsAction2());
-		Action.add(new AnalyticsAction3());
+		Action.add(new AnalyticsAction2(model));
+		Action.add(new AnalyticsAction3(model));
 		Action.add(new MustTryAction(model));
 		Action.add(new GetUserPhotosAction());
 		Action.add(new ViewPhoodListAction(model));
