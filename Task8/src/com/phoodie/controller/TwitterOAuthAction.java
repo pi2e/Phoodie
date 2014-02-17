@@ -30,14 +30,10 @@ public class TwitterOAuthAction extends Action{
 		OAuthService service = (OAuthService) request.getSession().getAttribute("service");
 		Token accessToken = service.getAccessToken(requestToken, v);
 		request.getSession().setAttribute("accessToken", accessToken);
-		System.out.println("secret" + accessToken.getSecret());
-		System.out.println("token" + accessToken.getToken());
+
 		
-//		TwitterAPI t = new TwitterAPI(request);
-//		t.reply("@aojiru_iciba xixixixi", "434057274554728448");
-//		t.retweet("434057274554728448");
 		
-		return "home.jsp";
+		return "allPhotos.do";
 	}
 
 }

@@ -25,18 +25,24 @@ public class PostCommentAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 				
-		String comment = request.getParameter("comment").toString();
-		String photoId = request.getParameter("photoId").toString();
-		
-		if(request.getParameter("type").equalsIgnoreCase("comment")) {
-		
-		Photo.postComment(photoId, comment, request);
-		
-		} else if (request.getParameter("type").equalsIgnoreCase("tweet")) {
+		String comment = request.getParameter("comment");
+		String photoId = request.getParameter("photoId");
+		String replyid = request.getParameter("replyid");
+		String retweetId = request.getParameter("retweetId");
 			
 			TwitterAPI twitter = new TwitterAPI(request);
 			try {
-				twitter.update(request.getParameter("comment").toString() + " " + Photo.getPhotoURL(request, photoId));
+				if(!(retweetId == null)) {
+					twitter.retweet(retweetId);
+					return "ajax";
+				}
+				
+				if(replyid.equals("")) {
+					twitter.update(comment + " " + Photo.getPhotoURL(request, photoId), photoId);
+				} else {
+					twitter.reply(comment + " " + Photo.getPhotoURL(request, photoId), photoId, replyid);
+				}
+				
 			} catch (InvalidKeyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -45,9 +51,8 @@ public class PostCommentAction extends Action {
 				e.printStackTrace();
 			}
 			//TwitterAPI.updateapi
-		}
 		
-		return "../jsp/home.jsp";
+		return "ajax";
 	}
 
 }

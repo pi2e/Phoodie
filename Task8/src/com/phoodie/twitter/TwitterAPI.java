@@ -27,7 +27,8 @@ public class TwitterAPI {
 	}
 	
 	public boolean islogin() {
-		if (accessToken == null) {
+		System.out.println(service);
+		if (accessToken == null || service == null) {
 			return false;
 		} else {
 			return true;
@@ -36,6 +37,14 @@ public class TwitterAPI {
 	
 	public void reply(String statue, String statueid) {
 		OAuthRequest trequest = new OAuthRequest(Verb.POST, updateapi+URLEncoder.encode(statue)+"&in_reply_to_status_id=" + statueid);
+		service.signRequest(accessToken, trequest); 
+		trequest.send();
+	}
+	
+	public void reply(String statue, String photoid, String statueid) {
+		System.out.println(statue + " #PHOODIE" + photoid);
+		System.out.println(updateapi+URLEncoder.encode(statue + " #PHOODIE" + photoid) +"&in_reply_to_status_id=" + statueid);
+		OAuthRequest trequest = new OAuthRequest(Verb.POST, updateapi+URLEncoder.encode(statue + " #PHOODIE" + photoid) +"&in_reply_to_status_id=" + statueid);
 		service.signRequest(accessToken, trequest); 
 		trequest.send();
 	}
@@ -52,9 +61,15 @@ public class TwitterAPI {
 		trequest.send();
 	}
 	
+	public void update(String statue, String photoid) {
+		OAuthRequest trequest = new OAuthRequest(Verb.POST, updateapi+URLEncoder.encode(statue + " #PHOODIE" + photoid));
+		service.signRequest(accessToken, trequest); 
+		trequest.send();
+	}
+	
 	public List<Statuse> search(String id) {
 		OAuthRequest trequest = new OAuthRequest(Verb.GET, searchapi + id);
-		service.signRequest(accessToken, trequest); 
+		service.signRequest(accessToken, trequest);
 		Response response = trequest.send();
 		
 		Gson g = new Gson();
