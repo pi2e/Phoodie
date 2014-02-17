@@ -86,6 +86,23 @@ public class DishRankDAO extends GenericDAO<DishRank> {
 		return dishRanks;
 	}
 
+	public DishRank getRankByMood(String dishId) throws DAOException {
+		// TODO Auto-generated method stub
+		DishRank[] dishRanks;
+
+		try {
+			dishRanks = match(MatchArg.equals("dish", dishId));
+
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+		if (dishRanks.length != 0) {
+			return dishRanks[0];
+		} else {
+			return null;
+		}
+	}
+
 }
 
 class DishComparatorMood implements Comparator<DishRank> {

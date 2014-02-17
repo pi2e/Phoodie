@@ -32,18 +32,23 @@ public class AnalyticsAction2 extends Action {
 	public String perform(HttpServletRequest request) {
 		
 		
-		if (request.getParameter("search") != null) {
+		if (!(request.getParameter("search") == null || request.getParameter("search").equals(""))) {
 			
 			String dishId =request.getParameter("search").toString();
 			System.out.println(request.getParameter("search"));
 
 			DishByDate[] arrayData2;
-			
+			DishRank dishData;
 			try {
 				arrayData2 = dishByDateDAO.getDishByDate(dishId);
-				if(arrayData2!=null){
+				
 				request.setAttribute("arrayData2", arrayData2);
-				}
+				
+				dishData = dishRankDAO.getRankByMood(dishId);
+				
+				request.setAttribute("dishData", dishData);
+				System.out.print(dishData.getMoodProb());
+				
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

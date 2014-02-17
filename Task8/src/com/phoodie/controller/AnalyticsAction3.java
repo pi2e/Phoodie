@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.genericdao.DAOException;
 import org.genericdao.RollbackException;
 
-import com.phoodie.Dao.DishByDateDAO;
-import com.phoodie.Dao.DishRankDAO;
 import com.phoodie.Dao.RestaurantByDateDAO;
 import com.phoodie.Dao.RestaurantRankDAO;
 import com.phoodie.databean.Model;
@@ -34,18 +32,23 @@ public class AnalyticsAction3 extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 
-		if (request.getParameter("search") != null) {
-			
+		if (!(request.getParameter("search") == null || request.getParameter("search").equals(""))) {
+				
 			String restaurantId =request.getParameter("search").toString();
 			System.out.println(request.getParameter("search"));
 
 			RestaurantByDate[] arrayData2;
-			
+			RestaurantRank restaurantData;
 			try {
 				arrayData2 = restaurantByDateDAO.getRestaurantByDate(restaurantId);
-				if(arrayData2!=null){
+				
 				request.setAttribute("arrayData2", arrayData2);
-				}
+			
+				restaurantData = restaurantRankDAO.getRankByMood(restaurantId);
+				
+				request.setAttribute("restaurantData", restaurantData);
+				System.out.print(restaurantData.getMoodProb());
+				
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -29,7 +29,7 @@
 			vAxis : {
 				title : 'Cuisine',
 				titleTextStyle : {
-					color : 'blue'
+					 color : 'blue' 
 				}
 			}
 		};
@@ -124,8 +124,8 @@ int val = averageMood.intValue();*/
 </form>
 
 <body>
-	<div id="chart_div" style="width: 800px; height: 400px;"></div>
-<div id="chart_div3" style="width: 900px; height: 400px;"></div>
+	<div id="chart_div" style="width: 600px; height: 400px;"></div>
+	<div id="chart_div3" style="width: 500px; height: 150px;"></div>
 	<div id="chart_div2" style="width: 900px; height: 400px;"></div>
 </body>
 

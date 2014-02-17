@@ -11,6 +11,7 @@ import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
 import com.phoodie.databean.Comment;
+import com.phoodie.databean.DishRank;
 import com.phoodie.databean.RestaurantRank;
 
 public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
@@ -90,6 +91,23 @@ public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
 		}
 
 		return restaurantRanks;
+	}
+
+	public RestaurantRank getRankByMood(String restaurantId) throws DAOException {
+		// TODO Auto-generated method stub
+		RestaurantRank[] restaurantRanks;
+
+		try {
+			restaurantRanks = match(MatchArg.equals("restaurantId", restaurantId));
+
+		} catch (RollbackException e) {
+			throw new DAOException(e);
+		}
+		if (restaurantRanks.length != 0) {
+			return restaurantRanks[0];
+		} else {
+			return null;
+		}
 	}
 }
 
