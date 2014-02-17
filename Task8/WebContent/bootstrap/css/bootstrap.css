@@ -313,6 +313,11 @@ img {
   max-width: 100%;
   height: auto;
 }
+.img-responsiveG {
+  display: block;
+  max-width: auto;
+  height: 90%;
+}
 .img-rounded {
   border-radius: 6px;
 }
@@ -5888,22 +5893,14 @@ td.visible-print {
 
 .gridThumb {
 	min-height: 250px;
-	margin: auto;
-	padding-bottom: 10px;
-}
-
-.gridRow {
-	max-height: 250px;
-}
-
-
-.feedPic {
-	padding-bottom: 2px;
 }
 
 .gridPic {
+	max-height: 185px;
+}
+
+.feedPic {
 	padding-bottom: 2px;
-	max-height: 200px;
 }
 
 .buttonFont {
