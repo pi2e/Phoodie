@@ -55,19 +55,25 @@
 							<div class="modal-body">
 								<form action="postToGroup.do" method="post"
 									id="groupForm${photo.id}" name="groupForm">
-									Food <input type="text" name="dish" class="form-control"
-										placeholder="Dish Name..." onchange=""> <br /> <input
-										id="cuisine" type="hidden" name="cuisine" /> <input
-										type="hidden" name="photoId" value="${photo.id }"> <input
+									Food <input type="text" name="dish" id="dish${photo.id}" class="form-control"
+										placeholder="Dish Name..." onchange=""> <br /> 
+										<input
+										id="cuisine${photo.id}" type="hidden" name="cuisine" />  
+										<input type="text" id="yelpId${photo.id}"
+										name="yelpId" />
+										<input type="text" id="rating${photo.id}"
+										name="rating" />
+										<input
 										type="hidden" name="photoId" value="${photo.id }">
-									Place <input type="text" id="inputString"
-										onkeyup="lookup(this.value);" name="restaurant"
+									Place <input type="text" id="inputString${photo.id}"
+										onkeyup="lookup(this.value,'${photo.id}');" name="restaurant"
 										class="form-control" placeholder="Restaurant Name,City..">
 									<br />
 
-									<div class="suggestionsBox" id="suggestions"
+									<br />
+									<div class="suggestionsBox" id="suggestions${photo.id}"
 										style="display: none;">
-										<div class="suggestionList" id="autoSuggestionsList"></div>
+										<div class="suggestionList" id="autoSuggestionsList${photo.id}"></div>
 									</div>
 									<input type="hidden" name="photoId" value="${photo.id }" />
 
@@ -106,17 +112,19 @@
 		}
 	}
 
-	function lookup(inputString) {
+	function lookup(inputString,photoId) {
 		if (inputString.length == 0) {
-			$('#suggestions').hide();
+			$('#suggestions'+photoId).hide();
 		} else {
 			$.post("searchYelp.do", {
-				queryString : "" + inputString + ""
+				queryString : "" + inputString ,
+				photoId : "" + photoId
+				
 			}, function(data) {
 
 				if (data.length > 0) {
-					$('#suggestions').show();
-					$('#autoSuggestionsList').html(data);
+					$('#suggestions'+photoId).show();
+					$('#autoSuggestionsList'+photoId).html(data);
 				}
 			});
 		}

@@ -19,9 +19,11 @@ public class GetYelpLocationAction extends Action {
 	@Override
 	public String perform(HttpServletRequest request) {
 		
-		String restuarant = request.getParameter("queryString");
+		String restaurant = request.getParameter("queryString");
+		String photoId = request.getParameter("photoId");
 		
-		String[] place = restuarant.split(",");
+		
+		String[] place = restaurant.split(",");
 		String restName = "";
 		String restLocation = "";
 		
@@ -52,6 +54,7 @@ public class GetYelpLocationAction extends Action {
 		        
 		    }
 		    request.setAttribute("locationlist", yelpResult.getBiz());
+		    request.setAttribute("photoId", photoId);
 		    
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

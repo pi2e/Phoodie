@@ -565,13 +565,30 @@ public class Photo {
 		OAuthRequest request = new OAuthRequest(Verb.POST,
 				"http://api.flickr.com/services/rest");
 		request.addQuerystringParameter("method",
-				"flickr.photos.comments.addComment");
+				"flickr.groups.pools.add");
 		request.addQuerystringParameter("photo_id", photoId);
-		request.addQuerystringParameter("photo_id", photoId);
+		request.addQuerystringParameter("group_id", OAuthUtility.groupId);
 
 		OAuthUtility.service.signRequest(
 				OAuthUtility.getAccessToken(httprequest), request);
-		request.send();
+		Response resp = request.send();
+		System.out.println(resp.getBody());
+		
+	}
+
+	public static void addTagToPhoto(String photoId, String tag, HttpServletRequest httprequest) {
+
+		OAuthRequest request = new OAuthRequest(Verb.POST,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method",
+				"flickr.photos.addTags");
+		request.addQuerystringParameter("photo_id", photoId);
+		request.addQuerystringParameter("tags", tag);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		Response resp = request.send();
+		System.out.println(resp.getBody());
 	}
 
 }

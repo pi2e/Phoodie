@@ -19,6 +19,10 @@ public class Businesses {
 		return id;
 	}
 	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getRating() {
 		return rating;
 	}
