@@ -84,7 +84,7 @@
 			$("#comment" + photoId).val("");
 			$('#infobody').html('Successful send tweet!');
 			$('#info').modal('show');
-			alert("Successful send tweet!");
+			bootbox.alert("Successful send tweet!");
 			
 	}
 	</script>
