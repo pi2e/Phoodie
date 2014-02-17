@@ -54,8 +54,12 @@ public class AllPhotosAction extends Action {
 			}
 			request.setAttribute("photos", list);
 			
+			boolean twitterlogin = false;
+			
+			
 			TwitterAPI t = new TwitterAPI(request);
 			if(t.islogin()) {
+				twitterlogin = true;
 				for(int i=0; i<list.size(); i++) {
 					PhotoBean photo = list.get(i);
 					List<Statuse> s = t.search(photo.getId());
@@ -65,6 +69,9 @@ public class AllPhotosAction extends Action {
 					photo.setStatuses(s);
 				}
 			}
+			
+			request.setAttribute("twitterlogin", twitterlogin);
+			System.out.println(twitterlogin);
 				
 			
 			

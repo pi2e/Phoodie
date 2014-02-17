@@ -2,6 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="container appMenu">
+	<div class="row">${twitterlogin == 'false' ? 'You must login with twitter account before comment' : ''}
+	</div>
 
 	<c:forEach var="photo" items="${photos}" varStatus="status">
 		<div class="row">
@@ -30,7 +32,7 @@
 				</button>
 
 
-				<button type="button" class="btn btn-default buttons"
+				<button type="button" class="btn btn-default buttons ${twitterlogin == 'false' ? 'disabled' : ''}"
 					data-toggle="modal" data-target="#myModal${photo.id }">
 					<span class="glyphicon glyphicon-comment"></span> <span
 						class="buttonFont">Comment</span>
@@ -57,11 +59,7 @@
 											${comment.text}
 										</div>
 									</div>
-									<%-- 									<button type="button" onclick="retweet(${photo.getId()}, ${comment.id_str}, ${comment.user.screen_name});"
-										class="btn btn-default buttons">
-										<span class="glyphicon glyphicon-share-alt"></span> <span
-											class="buttonFont">Reply</span>
-									</button> --%>
+	
 									<button type="button"
 										onclick="reply(${photo.getId()}, '${comment.id_str}', '${comment.user.screen_name}');"
 										class="btn btn-default buttons">
@@ -104,8 +102,7 @@
 										onclick="javascript:submitPage('${photo.id}', 'tweet');">
 										Tweet <img class="flickrButton" src="./img/tweet.png" />
 									</button>
-									<%-- 									<button type="button" class="btn btn-primary"
-										onclick="javascript:submitPage('${photo.id}', 'comment');">Post</button> --%>
+								
 								</form>
 
 							</div>

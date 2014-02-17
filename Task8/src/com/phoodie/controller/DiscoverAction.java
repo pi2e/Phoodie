@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.phoodie.flickr.Photo;
 import com.phoodie.flickr.PhotoBean;
+import com.phoodie.twitter.Statuse;
+import com.phoodie.twitter.TwitterAPI;
 
 //import com.cfs.databean.Model;
 
@@ -36,6 +38,18 @@ public class DiscoverAction extends Action {
 			
 			list = Photo.searchPhotos(request, request.getParameter("search"), request.getParameter("type"));
 			request.setAttribute("photos", list);
+			
+			TwitterAPI t = new TwitterAPI(request);
+			if(t.islogin()) {
+				for(int i=0; i<list.size(); i++) {
+					PhotoBean photo = list.get(i);
+					List<Statuse> s = t.search(photo.getId());
+					for(Statuse p : s) {
+						p.setText(p.getText().substring(0, p.getText().length() - 42));
+					}
+					photo.setStatuses(s);
+				}
+			}
 			
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
