@@ -187,7 +187,7 @@ public class Photo {
 
 	}
 
-	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request)
+	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request, String page)
 			throws InvalidKeyException, NoSuchAlgorithmException {
 
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
@@ -198,6 +198,9 @@ public class Photo {
 							+ OAuthUtility.key
 							+ "&group_id="
 							+ OAuthUtility.groupId
+							+ "&per_page=10"
+							+ "&page="
+							+ page
 							+ "&oauth_token="
 							+ request.getSession().getAttribute("oauth_token"));
 
@@ -218,7 +221,7 @@ public class Photo {
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
 			Document document = builder.parse(new ByteArrayInputStream(sb
 					.toString().getBytes()));
-
+			
 			// parse xml with Xpath
 			XPath xPath = XPathFactory.newInstance().newXPath();
 			String expression = "/rsp/photos/photo";

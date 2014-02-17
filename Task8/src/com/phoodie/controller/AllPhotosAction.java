@@ -34,10 +34,22 @@ public class AllPhotosAction extends Action {
 
 	@Override
 	public String perform(HttpServletRequest request) {
-
+		
+		String page = "1";
+		
+		if(request.getParameter("page") == null || request.getParameter("page").length() == 0) {
+			page = "1";
+		} else {
+			page = request.getParameter("page").toString();
+		}
+		
+		int pageNumber = Integer.parseInt(page);
+		int nextPage = pageNumber + 1;
+		int previousPage = pageNumber;
+		
 		List<PhotoBean> list;
 		try {
-			list = Photo.getGroupPhotos(request);
+			list = Photo.getGroupPhotos(request, page);
 			
 			for(int i=0; i<list.size(); i++) {
 				PhotoBean photo = list.get(i);
@@ -69,6 +81,15 @@ public class AllPhotosAction extends Action {
 					photo.setStatuses(s);
 				}
 			}
+			
+			request.setAttribute("page", page);
+			
+			if(pageNumber > 1) {
+				previousPage--;
+				request.setAttribute("previousPage", previousPage);
+			}
+			
+			request.setAttribute("nextPage", nextPage);
 			
 			request.setAttribute("twitterlogin", twitterlogin);
 			System.out.println(twitterlogin);
