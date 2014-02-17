@@ -11,12 +11,18 @@ public class Businesses {
     private String state_code;
     private String rating_img_url;
     private String review_count;
+    private String id;
     
     private ArrayList<ArrayList<String>> categories;
     
+	public String getId() {
+		return id;
+	}
+	
 	public String getRating() {
 		return rating;
 	}
+	
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
