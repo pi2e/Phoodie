@@ -50,6 +50,7 @@ public class AnalyticsAction extends Action {
 		int cuisineId;
 		try {
 			cuisineId = cuisineDAO.getCuisineId(cuisineName);
+			request.setAttribute("searchTerm", cuisineDAO.getCuisineName(cuisineId).getName());
 	
 			arrayData2 = cuisineByDateDAO.getCuisineByDate(cuisineId);
 			

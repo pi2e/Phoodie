@@ -40,6 +40,8 @@ public class AnalyticsAction2 extends Action {
 			DishByDate[] arrayData2;
 			DishRank dishData;
 			try {
+				request.setAttribute("searchTerm", dishId);
+				
 				arrayData2 = dishByDateDAO.getDishByDate(dishId);
 				
 				request.setAttribute("arrayData2", arrayData2);

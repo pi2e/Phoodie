@@ -40,6 +40,7 @@ public class AnalyticsAction3 extends Action {
 			RestaurantByDate[] arrayData2;
 			RestaurantRank restaurantData;
 			try {
+				request.setAttribute("searchTerm", restaurantId);
 				arrayData2 = restaurantByDateDAO.getRestaurantByDate(restaurantId);
 				
 				request.setAttribute("arrayData2", arrayData2);

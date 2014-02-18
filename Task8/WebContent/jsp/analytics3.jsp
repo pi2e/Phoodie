@@ -11,39 +11,38 @@
 <head>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <%  RestaurantRank[] arrayData =(RestaurantRank[]) request.getAttribute("arrayData");%>
-	  <% if(arrayData != null){%>
+<% if(arrayData != null){%>
 <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
     	 
         var data = google.visualization.arrayToDataTable([
-          ['Dish', 'Mood'],
+          ['Dish', 'Mood',{role: "style"}],
           <% 
           int len = arrayData.length > 5 ? 5 : arrayData.length;
           for(int i = 0; i < len; i++) { %>
           
-          ['<%=arrayData[i].getRestaurantId()%>',<%=arrayData[i].getMoodProb()%>],
+          ['<%=arrayData[i].getRestaurantId()%>',<%=arrayData[i].getMoodProb()%>,"green"],
 
 		<%} %>
 	]);
 
 		var options = {
-			title : 'Restaurant By Mood',
+			title : 'Sentiment',
 			 vAxis : {
 				title : 'Restaurant',
 				titleTextStyle : {
-					 color : 'blue' 
+					 /* color : 'blue'  */
 				}
 			}, 
-	/* 		hAxis: {
-      		    gridlines: {
-      		        color: 'transparent'
-      		    }
-      		}, */
       		bar:{
-    			groupWidth: '60%', 
-    		}
+    			groupWidth: '40%', 
+    		},
+    		legend: {
+    			position: 'left', 
+    			
+    			},
 		};
 
 		var chart = new google.visualization.BarChart(document
@@ -58,9 +57,9 @@
 /* Double averageMood = (arrayData3.getMoodProb()*100);
 int val = averageMood.intValue();*/
 %>
-	  <% if(arrayData3 != null){%>
- <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-    <script type='text/javascript'>
+<% if(arrayData3 != null){%>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript'>
       google.load('visualization', '1', {packages:['gauge']});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -72,10 +71,11 @@ int val = averageMood.intValue();*/
         ]);
 
         var options = {
-          width: 400, height: 120,
-          redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
-          minorTicks: 5
+        		 width: 270, height: 270,
+                 redFrom: 0, redTo: 34,
+                 greenFrom: 68, greenTo: 100,
+                 yellowFrom:34, yellowTo: 68,
+                 minorTicks: 5
         };
 
         var chart = new google.visualization.Gauge(document.getElementById('chart_div3'));
@@ -83,13 +83,13 @@ int val = averageMood.intValue();*/
       }
     	 
     </script>
-     <%}%>
+<%}%>
 
 </script>
- <%  RestaurantByDate[] arrayData2 =(RestaurantByDate[]) request.getAttribute("arrayData2");%>
- <% if(arrayData2 != null){%>
+<%  RestaurantByDate[] arrayData2 =(RestaurantByDate[]) request.getAttribute("arrayData2");%>
+<% if(arrayData2 != null){%>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -105,7 +105,9 @@ int val = averageMood.intValue();*/
     		                                  				]);
 
         var options = {
-          title: 'Restaurant By Date',
+          title: 'Sentiment Over Time',
+          backgroundColor: 'transparent',
+     	 
           vAxis: {
   		    gridlines: {
   		        color: 'transparent'
@@ -115,7 +117,11 @@ int val = averageMood.intValue();*/
       gridlines: {
           color: 'transparent'
       }
-  }
+  },
+  legend: {
+		position: 'left', 
+		
+		},
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
@@ -123,12 +129,12 @@ int val = averageMood.intValue();*/
       }
  	  
     </script>
-     <%}%>
-    
-    </script>
-    	  <% if(arrayData2 != null){%>
- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
+<%}%>
+
+</script>
+<% if(arrayData2 != null){%>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -144,7 +150,9 @@ int val = averageMood.intValue();*/
     		                                  				]);
 
         var options = {
-          title: 'Share By Date',
+          title: 'Conversation Over Time',
+          backgroundColor: 'transparent',
+     	 
           vAxis: {
   		    gridlines: {
   		        color: 'transparent'
@@ -154,7 +162,11 @@ int val = averageMood.intValue();*/
       gridlines: {
           color: 'transparent'
       }
-  }
+  },
+  legend: {
+		position: 'left', 
+		
+		},
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div4'));
@@ -162,7 +174,7 @@ int val = averageMood.intValue();*/
       }
  	   
     </script>
-    <%}%>
+<%}%>
 </head>
 
 <div class="container">
@@ -171,8 +183,9 @@ int val = averageMood.intValue();*/
 		<li><a href="analytics2.do">Dish</a></li>
 		<li class="active"><a href="analytics3.do">Restaurant</a></li>
 	</ul>
-
 </div>
+
+<br/>
 <form id="searchForm" action="analytics3.do" method="post">
 	<div class="container searchBar">
 		<div class="input-group">
@@ -190,11 +203,38 @@ int val = averageMood.intValue();*/
 	</div>
 
 </form>
-<body>
-	<div id="chart_div" style="width: 600px; height: 400px;"></div>
-<div id="chart_div3" style="width: 500px; height: 150px;"></div>
-	<div id="chart_div2" style="width: 900px; height: 400px;"></div>
-		<div id="chart_div4" style="width: 900px; height: 400px;"></div>
-</body>
+<br/>
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">Top Restaurants</div>
+		<div class="panel-body">
+			<div id="chart_div" style="width: 500px; height: 300px;"></div>
+		</div>
+	</div>
 
+	<c:choose>
+		<c:when test="${searchTerm != null}">
+			<div class="panel panel-default">
+				<div class="panel-heading">${searchTerm}</div>
+				<div class="panel-body">
+					<div class="well" style="width: 300px;">
+						<div id="chart_div3" style="width: 270px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div2" style="width: 900px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div4" style="width: 900px; height: 270px;"></div>
+					</div>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
+</div>
+<!-- <div class="container">
+	<div id="chart_div" style="width: 600px; height: 400px;"></div>
+	<div id="chart_div3" style="width: 500px; height: 150px;"></div>
+	<div id="chart_div2" style="width: 900px; height: 400px;"></div>
+	<div id="chart_div4" style="width: 900px; height: 400px;"></div>
+</div> -->
 <jsp:include page="bottom.jsp" />

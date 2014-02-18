@@ -8,14 +8,7 @@
 <%@page import="com.phoodie.databean.DishRank"%>
 <%@page import="com.phoodie.databean.DishByDate"%>
 
-<div class="container">
-	<ul class="nav nav-tabs">
-		<li><a href="analytics.do">Cuisine</a></li>
-		<li class="active"><a href="analytics2.do">Dish</a></li>
-		<li><a href="analytics3.do">Restaurant</a></li>
-	</ul>
 
-</div>
 <head>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  <%  DishRank[] arrayData =(DishRank[]) request.getAttribute("arrayData");%>
@@ -26,32 +19,30 @@
       function drawChart() {
     	
         var data = google.visualization.arrayToDataTable([
-          ['Dish', 'Mood'],
+          ['Dish', 'Mood', {role: "style"}],
           <% 
           int len = arrayData.length > 5 ? 5 : arrayData.length;
           for(int i = 0; i < len; i++) { %>
           
-          ['<%=arrayData[i].getDish()%>',<%=arrayData[i].getMoodProb()%>],
+          ['<%=arrayData[i].getDish()%>',<%=arrayData[i].getMoodProb()%>,"green"],
 
 		<%} %>
 	]);
 
 		var options = {
-			title : 'Dish By Mood',
+			title : 'Sentiment',
 			vAxis : {
 				title : 'Dish',
 				titleTextStyle : {
-					/* color : 'blue' */
 				}
 			},
-		/* hAxis: {
-  		    gridlines: {
-  		        color: 'transparent'
-  		    }
-  		}, */
   		bar:{
-			groupWidth: '60%', 
-		}
+			groupWidth: '40%', 
+		},
+		legend: {
+			position: 'left', 
+			
+			},
   		
 		};
 
@@ -63,8 +54,6 @@
 <%}%>
 </script>
 <%  DishRank arrayData3 =(DishRank) request.getAttribute("dishData");
-/* Double averageMood = (arrayData3.getMoodProb()*100);
-int val = averageMood.intValue();*/
 %>
   <% if(arrayData3 != null){%>
  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -80,10 +69,11 @@ int val = averageMood.intValue();*/
         ]);
 
         var options = {
-          width: 400, height: 120,
-          redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
-          minorTicks: 5
+        		 width: 270, height: 270,
+                 redFrom: 0, redTo: 34,
+                 greenFrom: 68, greenTo: 100,
+                 yellowFrom:34, yellowTo: 68,
+                 minorTicks: 5
         };
 
         var chart = new google.visualization.Gauge(document.getElementById('chart_div3'));
@@ -112,7 +102,8 @@ int val = averageMood.intValue();*/
     		                                  				]);
 
         var options = {
-          title: 'Dish By Date',
+          title: 'Sentiment Over Time',
+     	 backgroundColor: 'transparent',
           vAxis: {
   		    gridlines: {
   		        color: 'transparent'
@@ -122,7 +113,11 @@ int val = averageMood.intValue();*/
       gridlines: {
           color: 'transparent'
       }
-  }
+  },
+  legend: {
+		position: 'left', 
+		
+		},
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
@@ -150,7 +145,8 @@ int val = averageMood.intValue();*/
     		                                  				]);
 
         var options = {
-          title: 'Share By Date',
+          title: 'Conversation Over Time',
+     	 backgroundColor: 'transparent',
           vAxis: {
   		    gridlines: {
   		        color: 'transparent'
@@ -160,7 +156,11 @@ int val = averageMood.intValue();*/
       gridlines: {
           color: 'transparent'
       }
-  }
+  },
+  		legend: {
+			position: 'left', 
+			
+			},
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div4'));
@@ -170,6 +170,17 @@ int val = averageMood.intValue();*/
     </script>
      <%}%>
 </head>
+
+
+<div class="container">
+	<ul class="nav nav-tabs">
+		<li><a href="analytics.do">Cuisine</a></li>
+		<li class="active"><a href="analytics2.do">Dish</a></li>
+		<li><a href="analytics3.do">Restaurant</a></li>
+	</ul>
+</div>
+
+<br/>
 
 <form id="searchForm" action="analytics2.do" method="post">
 	<div class="container searchBar">
@@ -188,11 +199,33 @@ int val = averageMood.intValue();*/
 	</div>
 
 </form>
+<br/>
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">Top Dishes</div>
+		<div class="panel-body">
+			<div id="chart_div" style="width: 500px; height: 300px;"></div>
+		</div>
+	</div>
 
-<body>
-	<div id="chart_div" style="width: 600px; height: 400px;"></div>
-<div id="chart_div3" style="width: 500px; height: 150px;"></div>
-	<div id="chart_div2" style="width: 900px; height: 400px;"></div>
-		<div id="chart_div4" style="width: 900px; height: 400px;"></div>
-</body>
+	<c:choose>
+		<c:when test="${searchTerm != null}">
+			<div class="panel panel-default">
+				<div class="panel-heading">${searchTerm}</div>
+				<div class="panel-body">
+					<div class="well" style="width: 300px;">
+						<div id="chart_div3" style="width: 270px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div2" style="width: 900px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div4" style="width: 900px; height: 270px;"></div>
+					</div>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
+</div>
+
 <jsp:include page="bottom.jsp" />
