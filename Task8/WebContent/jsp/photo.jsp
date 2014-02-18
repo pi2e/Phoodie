@@ -2,8 +2,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="container appMenu">
-	<div class="row">${twitterlogin == 'false' ? 'You must login with twitter account before comment' : ''}
-	</div>
 
 	<c:forEach var="photo" items="${photos}" varStatus="status">
 		<div class="row">
