@@ -547,6 +547,7 @@ public class Photo {
 			photo.setTitle(list.item(i).getAttributes().getNamedItem("title")
 					.getNodeValue());
 
+			addRestaurantCuisine(photo.getId(), httprequest, photo);
 			photoList.add(photo);
 		}
 

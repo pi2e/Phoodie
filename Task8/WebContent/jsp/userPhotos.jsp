@@ -36,12 +36,20 @@
 		<div class="col-xs-3 gridThumb">
 			<div class="thumbnail">
 				<img class="gridPic" src="${photo.getURL() }">
+				<c:choose>
+				<c:when test="${photo.yelpId eq ''}">
 				<button type="button" class="btn btn-default buttons"
 					data-toggle="modal" data-target="#myModal${photo.id }">
 					<span class="glyphicon glyphicon-plus"></span> <span
 						class="buttonFont">Add</span>
-				</button>
-
+				</button></c:when>
+				<c:otherwise>
+				<button type="button" class="btn btn-default buttons" disabled ="disabled"
+					data-toggle="modal" data-target="#myModal${photo.id }">
+					<span class="glyphicon glyphicon-plus"></span> <span
+						class="buttonFont">Add</span></button>
+				</c:otherwise>
+</c:choose>
 				<!-- Modal -->
 				<div class="modal fade" id="myModal${photo.id}" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
