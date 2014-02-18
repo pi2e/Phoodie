@@ -34,7 +34,7 @@
 <div class="row gridRow">
 	<c:forEach var="photo" items="${photoList}" varStatus="status">
 		<div class="col-xs-3 gridThumb">
-			<div class="thumbnail gridThumb">
+			<div class="thumbnail">
 				<img class="gridPic" src="${photo.getURL() }">
 				<button type="button" class="btn btn-default buttons"
 					data-toggle="modal" data-target="#myModal${photo.id }">

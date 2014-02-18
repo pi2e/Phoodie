@@ -16,6 +16,7 @@
 <!-- Bootstrap core CSS -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <script src="bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
 <!-- Custom styles for this template -->
 
 <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -39,7 +40,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#"><span><span
-						class="glyphicon glyphicon-cutlery"></span><span class="appHead">
+						class="glyphicon glyphicon-cutlery hidden-xs"></span><span class="appHead">
 							Phoodie</span></span></a> <a href="allPhotos.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-home"></span><span class="hidden-xs">
 						Home</span></a> <a href="userPhotos.do" class="navbar-icon"><span
@@ -47,8 +48,8 @@
 						Your Photos</span></a>
 						<a href="discover.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-search"></span><span class="hidden-xs">
-						Search</span></a>
-						<a href="viewPhoodList.do" class="navbar-icon hidden-xs"><span
+						Discover</span></a>
+						<a href="viewPhoodList.do" class="navbar-icon"><span
 					class="glyphicon glyphicon-star"></span><span class="hidden-xs">
 						Phood List</span></a>
 					
