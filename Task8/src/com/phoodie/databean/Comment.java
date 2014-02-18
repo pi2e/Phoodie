@@ -36,7 +36,12 @@ public class Comment {
 
 
 	public double getMoodProb() {
-		return moodProb;
+		if(mood.equals("negative")) {
+			return -moodProb;
+		}
+		else {
+			return moodProb;
+		}	
 	}
 
 	public void setMoodProb(double moodProb) {

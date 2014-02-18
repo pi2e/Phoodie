@@ -72,10 +72,9 @@ public class AnalyticsAction extends Action {
 			CommentAna commentdatas = new CommentAna();
 			
 			for(int i = 0; i < comments.length; i++) {
-				if(comments[i].getMoodProb() < -0.5) {
-					System.out.println(comments[i].getMoodProb());
+				if(comments[i].getMoodProb() <  -0.6) {
 					commentdatas.setNegativecount(commentdatas.getNegativecount() + 1);
-				} else if (comments[i].getMoodProb() > 0.5) {
+				} else if (comments[i].getMoodProb() > 0.6) {
 					commentdatas.setPositivecount(commentdatas.getPositivecount() + 1);
 				} else {
 					commentdatas.setNeutralcount(commentdatas.getNeutralcount() + 1);

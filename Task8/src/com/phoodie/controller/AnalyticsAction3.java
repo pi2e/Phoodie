@@ -3,10 +3,14 @@ package com.phoodie.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.DAOException;
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
+import com.phoodie.Dao.CommentDAO;
 import com.phoodie.Dao.RestaurantByDateDAO;
 import com.phoodie.Dao.RestaurantRankDAO;
+import com.phoodie.databean.Comment;
+import com.phoodie.databean.CommentAna;
 import com.phoodie.databean.Model;
 import com.phoodie.databean.RestaurantByDate;
 import com.phoodie.databean.RestaurantRank;
@@ -16,11 +20,12 @@ import com.phoodie.databean.RestaurantRank;
 public class AnalyticsAction3 extends Action {
 	RestaurantRankDAO restaurantRankDAO;
 	RestaurantByDateDAO restaurantByDateDAO;
+	CommentDAO commentDAO;
 	public AnalyticsAction3(Model model) {
 		// TODO Auto-generated constructor stub
 		restaurantRankDAO = model.getRestaurantRankDAO();
 		restaurantByDateDAO = model.getRestaurantByDateDAO();
-		
+		commentDAO = model.getCommentDAO();
 	}
 
 	@Override
@@ -48,6 +53,22 @@ public class AnalyticsAction3 extends Action {
 				restaurantData = restaurantRankDAO.getRankByMood(restaurantId);
 				
 				request.setAttribute("restaurantData", restaurantData);
+				
+               Comment[] comments = commentDAO.match(MatchArg.equals("restaurantId", restaurantId));
+				
+				CommentAna commentdatas = new CommentAna();
+				
+				for(int i = 0; i < comments.length; i++) {
+					if(comments[i].getMoodProb() <  -0.6) {
+						commentdatas.setNegativecount(commentdatas.getNegativecount() + 1);
+					} else if (comments[i].getMoodProb() > 0.6) {
+						commentdatas.setPositivecount(commentdatas.getPositivecount() + 1);
+					} else {
+						commentdatas.setNeutralcount(commentdatas.getNeutralcount() + 1);
+					}
+				}
+				
+				request.getSession().setAttribute("commentdatas", commentdatas);
 
 				
 			} catch (DAOException e) {

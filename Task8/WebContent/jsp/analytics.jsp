@@ -196,13 +196,15 @@ var data = google.visualization.arrayToDataTable([
                                                   ['${searchTerm}', ${commentdatas.negativecount}, ${commentdatas.neutralcount}, ${commentdatas.positivecount}]
                                                 ]);
 
-var options = {
+ var options = {
+		 title : 'Sentiment',
+		 backgroundColor: 'transparent',
                                                   width: 600,
-                                                  height: 400,
+                                                  height: 200,
                                                   legend: { position: 'top', maxLines: 3 },
-                                          	bar: { groupWidth: '75%' },
+                                          	      bar: { groupWidth: '50%' },
                                                   isStacked: true,
-                                                };
+                                                }; 
 
 var chart = new google.visualization.BarChart(document.getElementById('chart_div5'));
 chart.draw(data, options);
@@ -257,14 +259,15 @@ chart.draw(data, options);
 						<div id="chart_div3" style="width: 270px; height: 270px;"></div>
 					</div>
 					<div class="well" style="width: 900px;">
-						<div id="chart_div2" style="width: 900px; height: 270px;"></div>
+						<div id="chart_div5" style="width: 900px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div2" style="width: 900px; height: 270px;"></div>	
 					</div>
 					<div class="well" style="width: 900px;">
 						<div id="chart_div4" style="width: 900px; height: 270px;"></div>
 					</div>
-					<div class="well" style="width: 900px;">
-						<div id="chart_div5" style="width: 900px; height: 270px;"></div>
-					</div>
+					
 				</div>
 			</div>
 		</c:when>
