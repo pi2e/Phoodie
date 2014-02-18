@@ -54,7 +54,7 @@ public class OAuthUtility {
 			URISyntaxException, MalformedURLException {
 		List<NameValuePair> qparams = new ArrayList<NameValuePair>();
 		qparams.add(new BasicNameValuePair("oauth_callback",
-				"http://localhost:8080/Task8/authorize.do"));
+				"http://128.237.216.173:8080/Task8/authorize.do"));
 		qparams.add(new BasicNameValuePair("oauth_consumer_key", key));
 		qparams.add(new BasicNameValuePair("oauth_nonce", ""
 				+ (int) (Math.random() * 100000000)));
