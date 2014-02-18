@@ -19,7 +19,14 @@ public class PhotoBean {
 	private String restaurantName;
 	private String cuisineName;
 	private String yelpId;
+	private String dishName;
 	
+	public String getDishName() {
+		return dishName;
+	}
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
+	}
 	public String getYelpId() {
 		return yelpId;
 	}
