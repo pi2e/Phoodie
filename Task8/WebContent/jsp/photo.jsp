@@ -102,6 +102,8 @@
 									id="commentForm${photo.id}" name="commentForm">
 									<input type="hidden" name="cuisineName" value="${photo.cuisineName }"> 
 									<input type="hidden" name="dish" value="${photo.dishName }"> 
+									<input type="hidden" name="yelpId" value="${photo.yelpId }"> 
+									<input type="hidden" name="type" value=""> 
 									<input type="hidden" name="type" value=""> 
 									<input
 										type="hidden" id="replyid${photo.getId()}" value=""> <input
@@ -112,7 +114,7 @@
 									<button type="button" class="btn btn-default"
 										data-dismiss="modal">Cancel</button>
 									<button type="button" class="btn btn-primary"
-										onclick="javascript:submitPage('${photo.id}', 'tweet','${photo.cuisineName }','${photo.dishName }');">
+										onclick="javascript:submitPage('${photo.id}', 'tweet','${photo.cuisineName }','${photo.dishName }','${photo.yelpId }');">
 										Tweet <img class="flickrButton" src="./img/tweet.png" />
 									</button>
 								
@@ -164,10 +166,10 @@
 		
 	}
 	
-	function submitPage(photoId, type,cuisine , dish) {
+	function submitPage(photoId, type,cuisine , dish, yelpId) {
 			var comm = document.getElementById("comment" + photoId);
 			comm.type.value = type;
-			var url = "./postComment.do?photoId=" + photoId + "&comment=" + comm.value + "&replyid=" + $("#replyid"+photoId).val() + "&cuisineName=" + cuisine + "&dish=" + dish;
+			var url = "./postComment.do?photoId=" + photoId + "&comment=" + comm.value + "&replyid=" + $("#replyid"+photoId).val() + "&cuisineName=" + cuisine + "&dish=" + dish + "&yelpId=" + yelpId;
 			$.get(url);
 			
 			var node = '<div class="media" id = "comtmplate"><div class="media-body"><h5 class="media-heading text-primary">From myself</h5>' + comm.value + '</div></div>';

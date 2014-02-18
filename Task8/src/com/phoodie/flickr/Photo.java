@@ -597,7 +597,7 @@ public class Photo {
 		String restName = "";
 		String cuisineName = "";
 		String yelpId = "";
-		
+		String dish="";
 		OAuthRequest request = new OAuthRequest(Verb.GET,
 				"http://api.flickr.com/services/rest");
 		request.addQuerystringParameter("method", "flickr.photos.getInfo");
@@ -655,8 +655,17 @@ public class Photo {
 					photo.setYelpId(yelpId);
 				}
 			}
+			if (rest.contains("dishName")) {
+				String[] name = rest.split("=");
+				if (name.length == 2) {
+					dish = name[1];
+					System.out.println("dishtag" + dish);
+					photo.setDishName(dish);
+				}
+			}
+
 		}
-		System.out.println("tag" + restName);
+		
 	}
 
 }

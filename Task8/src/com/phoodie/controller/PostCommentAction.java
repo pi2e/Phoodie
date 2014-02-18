@@ -46,6 +46,7 @@ public class PostCommentAction extends Action {
 		String retweetId = request.getParameter("retweetId");
 		String dish = request.getParameter("dish");
 		String cuisineName = request.getParameter("cuisineName");
+		String yelpId = request.getParameter("yelpId");
 		System.out.println("cuisine"+cuisineDAO);
 		String photourl = "http://www.phoodie.com:8080/Task8/photo.do?photoId="+photoId;
 
@@ -70,6 +71,7 @@ public class PostCommentAction extends Action {
 			com.setMood(senti.getMood());
 			com.setMoodProb(Double.parseDouble(senti.getProb()));
 			com.setPhotoId(photoId);
+			com.setRestaurantId(yelpId);
 			
 			//Get the cuisine Id
 			Integer cuisineId = cuisineDAO.getCuisineIdByName(cuisineName);

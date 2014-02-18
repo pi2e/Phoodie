@@ -24,6 +24,8 @@ public class AddPhotoToGroupAction extends Action {
 		String yelpId = request.getParameter("yelpId");
 		String rating = request.getParameter("rating");
 		
+		System.out.println(dish+"dish");
+		
 		String[] splitStr = place.split(",");
 		String restaurantName = splitStr[0];
 		String photoId = request.getParameter("photoId");
@@ -50,6 +52,7 @@ public class AddPhotoToGroupAction extends Action {
 		tagList.add("yelpId:id="+yelpId);
 		tagList.add("restaurantName:name="+restaurantName);
 		tagList.add("cuisineName:name="+cuisine);
+		tagList.add("dishName:name="+dish);
 
 		// Add Photo to Group
 
@@ -63,7 +66,6 @@ public class AddPhotoToGroupAction extends Action {
 
 		Photo.addTagToPhoto(photoId, allTags.toString(),request);
 		
-		//Save the rating and photoId in table
 		
 		return "allPhotos.do";
 	}
