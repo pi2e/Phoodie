@@ -37,7 +37,7 @@
 			<div class="thumbnail">
 				<img class="gridPic" src="${photo.getURL() }">
 				<c:choose>
-				<c:when test="${photo.yelpId eq ''}">
+				<c:when test="${photo.yelpId eq '' || photo.yelpId == null}">
 				<button type="button" class="btn btn-default buttons"
 					data-toggle="modal" data-target="#myModal${photo.id }">
 					<span class="glyphicon glyphicon-plus"></span> <span
