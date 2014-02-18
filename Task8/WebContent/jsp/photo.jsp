@@ -9,10 +9,10 @@
 		<div class="row">
 			<div class="thumbnail appRow">
 				<span class="text-left">${photo.getOwnerName() } &nbsp;&nbsp;</span>
-				<c:if test="${photo.restaurantName ne ''}">
+				<c:if test="${not empty photo.restaurantName }">
 				<a href="#">@ ${ photo.restaurantName}</a></c:if>
 				<div style="float: right">
-				<c:if test="${photo.rating ne ''}">
+				<c:if test="${not empty photo.rating}">
 				<c:forEach begin="1" end="${photo.rating }" varStatus="loop">
     			<span class="glyphicon glyphicon-star-empty"></span> 
 				</c:forEach></c:if>

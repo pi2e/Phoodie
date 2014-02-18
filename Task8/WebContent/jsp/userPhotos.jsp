@@ -59,9 +59,9 @@
 										placeholder="Dish Name..." onchange=""> <br /> 
 										<input
 										id="cuisine${photo.id}" type="hidden" name="cuisine" />  
-										<input type="text" id="yelpId${photo.id}"
+										<input type="hidden" id="yelpId${photo.id}"
 										name="yelpId" />
-										<input type="text" id="rating${photo.id}"
+										<input type="hidden" id="rating${photo.id}"
 										name="rating" />
 										<input
 										type="hidden" name="photoId" value="${photo.id }">
