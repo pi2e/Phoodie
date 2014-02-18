@@ -9,12 +9,14 @@
 		<div class="row">
 			<div class="thumbnail appRow">
 				<span class="text-left">${photo.getOwnerName() } &nbsp;&nbsp;</span>
-				<a href="#">@ Five Guys Burgers</a>
+				<c:if test="${photo.restaurantName ne ''}">
+				<a href="#">@ ${ photo.restaurantName}</a></c:if>
 				<div style="float: right">
-					<span class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span>
+				<c:if test="${photo.rating ne ''}">
+				<c:forEach begin="1" end="${photo.rating }" varStatus="loop">
+    			<span class="glyphicon glyphicon-star-empty"></span> 
+				</c:forEach></c:if>
+					
 				</div>
 				<img class="feedPic" src="${photo.getURL() }">
 

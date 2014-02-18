@@ -48,6 +48,8 @@ public class AddPhotoToGroupAction extends Action {
 		}
 		
 		tagList.add("yelpId:id="+yelpId);
+		tagList.add("restaurantName:name="+restaurantName);
+		tagList.add("cuisineName:name="+cuisine);
 
 		// Add Photo to Group
 

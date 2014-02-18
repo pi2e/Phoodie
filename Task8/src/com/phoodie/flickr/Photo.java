@@ -92,7 +92,7 @@ public class Photo {
 			}
 
 			photo.setFavorite(fav);
-			
+
 			String expression2 = "/rsp/photo/owner";
 			NodeList list2 = (NodeList) xPath.compile(expression2).evaluate(
 					document, XPathConstants.NODESET);
@@ -187,8 +187,8 @@ public class Photo {
 
 	}
 
-	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request, String page)
-			throws InvalidKeyException, NoSuchAlgorithmException {
+	public static List<PhotoBean> getGroupPhotos(HttpServletRequest request,
+			String page) throws InvalidKeyException, NoSuchAlgorithmException {
 
 		List<PhotoBean> photoList = new ArrayList<PhotoBean>();
 
@@ -221,7 +221,7 @@ public class Photo {
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
 			Document document = builder.parse(new ByteArrayInputStream(sb
 					.toString().getBytes()));
-			
+
 			// parse xml with Xpath
 			XPath xPath = XPathFactory.newInstance().newXPath();
 			String expression = "/rsp/photos/photo";
@@ -350,23 +350,23 @@ public class Photo {
 			for (int i = 0; i < list.getLength(); i++) {
 
 				PhotoBean photo = new PhotoBean();
-				String photoId = list.item(i).getAttributes().getNamedItem("id").getNodeValue();
+				String photoId = list.item(i).getAttributes()
+						.getNamedItem("id").getNodeValue();
 				photo = getPhoto(request, photoId);
-				
-				
+
 				/*
-				photo.setOwner(list.item(i).getAttributes()
-						.getNamedItem("owner").getNodeValue());
-				photo.setSecret(list.item(i).getAttributes()
-						.getNamedItem("secret").getNodeValue());
-				photo.setServer(list.item(i).getAttributes()
-						.getNamedItem("server").getNodeValue());
-				photo.setFarm(list.item(i).getAttributes().getNamedItem("farm")
-						.getNodeValue());
-				photo.setTitle(list.item(i).getAttributes()
-						.getNamedItem("title").getNodeValue());
-				*/
-				
+				 * photo.setOwner(list.item(i).getAttributes()
+				 * .getNamedItem("owner").getNodeValue());
+				 * photo.setSecret(list.item(i).getAttributes()
+				 * .getNamedItem("secret").getNodeValue());
+				 * photo.setServer(list.item(i).getAttributes()
+				 * .getNamedItem("server").getNodeValue());
+				 * photo.setFarm(list.item
+				 * (i).getAttributes().getNamedItem("farm") .getNodeValue());
+				 * photo.setTitle(list.item(i).getAttributes()
+				 * .getNamedItem("title").getNodeValue());
+				 */
+
 				photoList.add(photo);
 			}
 
@@ -416,7 +416,7 @@ public class Photo {
 
 		OAuthUtility.service.signRequest(
 				OAuthUtility.getAccessToken(httprequest), request);
-		
+
 		request.send();
 
 	}
@@ -557,15 +557,13 @@ public class Photo {
 		return photoList;
 
 	}
-	
 
-	public static void postPhotoToGroup(String photoId, 
+	public static void postPhotoToGroup(String photoId,
 			HttpServletRequest httprequest) {
 
 		OAuthRequest request = new OAuthRequest(Verb.POST,
 				"http://api.flickr.com/services/rest");
-		request.addQuerystringParameter("method",
-				"flickr.groups.pools.add");
+		request.addQuerystringParameter("method", "flickr.groups.pools.add");
 		request.addQuerystringParameter("photo_id", photoId);
 		request.addQuerystringParameter("group_id", OAuthUtility.groupId);
 
@@ -573,15 +571,15 @@ public class Photo {
 				OAuthUtility.getAccessToken(httprequest), request);
 		Response resp = request.send();
 		System.out.println(resp.getBody());
-		
+
 	}
 
-	public static void addTagToPhoto(String photoId, String tag, HttpServletRequest httprequest) {
+	public static void addTagToPhoto(String photoId, String tag,
+			HttpServletRequest httprequest) {
 
 		OAuthRequest request = new OAuthRequest(Verb.POST,
 				"http://api.flickr.com/services/rest");
-		request.addQuerystringParameter("method",
-				"flickr.photos.addTags");
+		request.addQuerystringParameter("method", "flickr.photos.addTags");
 		request.addQuerystringParameter("photo_id", photoId);
 		request.addQuerystringParameter("tags", tag);
 
@@ -589,6 +587,76 @@ public class Photo {
 				OAuthUtility.getAccessToken(httprequest), request);
 		Response resp = request.send();
 		System.out.println(resp.getBody());
+	}
+
+	public static void addRestaurantCuisine(String photoId,
+			HttpServletRequest httprequest, PhotoBean photo)
+			throws IOException, SAXException, ParserConfigurationException,
+			XPathExpressionException {
+		// TODO Auto-generated method stub
+		String restName = "";
+		String cuisineName = "";
+		String yelpId = "";
+		
+		OAuthRequest request = new OAuthRequest(Verb.GET,
+				"http://api.flickr.com/services/rest");
+		request.addQuerystringParameter("method", "flickr.photos.getInfo");
+		request.addQuerystringParameter("photo_id", photoId);
+		// request.addQuerystringParameter("tags", tag);
+
+		OAuthUtility.service.signRequest(
+				OAuthUtility.getAccessToken(httprequest), request);
+		Response resp = request.send();
+		BufferedReader input = new BufferedReader(new InputStreamReader(
+				resp.getStream()));
+		StringBuilder sb = new StringBuilder();
+		String output = "";
+
+		while ((output = input.readLine()) != null) {
+			sb.append(output);
+
+		}
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document document = builder.parse(new ByteArrayInputStream(sb
+				.toString().getBytes()));
+
+		// parse xml with Xpath
+		XPath xPath = XPathFactory.newInstance().newXPath();
+		String expression = "/rsp/photo/tags/tag";
+		NodeList list = (NodeList) xPath.compile(expression).evaluate(document,
+				XPathConstants.NODESET);
+		System.out.println("item" + list.item(0));
+
+		for (int i = 0; i < list.getLength(); i++) {
+			String rest = list.item(i).getAttributes().getNamedItem("raw")
+					.getNodeValue();
+
+			if (rest.contains("restaurantName")) {
+				String[] name = rest.split("=");
+				if (name.length == 2) {
+					restName = name[1];
+					photo.setRestaurantName(restName);
+				}
+			}
+
+			if (rest.contains("cuisineName")) {
+				String[] name = rest.split("=");
+				if (name.length == 2) {
+					cuisineName = name[1];
+					photo.setCuisineName(cuisineName);
+				}
+			}
+			if (rest.contains("yelpId")) {
+				String[] name = rest.split("=");
+				if (name.length == 2) {
+					yelpId = name[1];
+					photo.setYelpId(yelpId);
+				}
+			}
+		}
+		System.out.println("tag" + restName);
 	}
 
 }
