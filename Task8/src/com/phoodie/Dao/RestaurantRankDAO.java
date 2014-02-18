@@ -42,10 +42,10 @@ public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
 			} else
 
 				restaurantRank = restaurantRanks[0];
-			restaurantRank
-					.setCommentCount(restaurantRank.getCommentCount() + 1);
 			restaurantRank.setMoodProb((restaurantRank.getMoodProb() + comment
 					.getMoodProb()) / (restaurantRank.getCommentCount() + 1));
+			restaurantRank
+			.setCommentCount(restaurantRank.getCommentCount() + 1);
 			restaurantRank.setLeadProb((restaurantRank.getLeadProb() + comment
 					.getLeadProb()) / (restaurantRank.getCommentCount() + 1));
 			update(restaurantRank);

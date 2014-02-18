@@ -36,9 +36,9 @@ public class DishRankDAO extends GenericDAO<DishRank> {
 				return 0;
 			} else {
 				dishRank = dishRanks[0];
-				dishRank.setCommentCount(dishRank.getCommentCount() + 1);
 				dishRank.setMoodProb((dishRank.getMoodProb() + comment
 						.getMoodProb()) / (dishRank.getCommentCount() + 1));
+				dishRank.setCommentCount(dishRank.getCommentCount() + 1);
 				dishRank.setLeadProb((dishRank.getLeadProb() + comment
 						.getLeadProb()) / (dishRank.getCommentCount() + 1));
 				update(dishRank);

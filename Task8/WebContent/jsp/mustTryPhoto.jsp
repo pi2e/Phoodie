@@ -7,13 +7,6 @@
 		<div class="row">
 			<div class="thumbnail appRow">
 				<span class="text-left">${photo.getOwnerName() } &nbsp;&nbsp;</span>
-				<a href="#">@ Five Guys Burgers</a>
-				<div style="float: right">
-					<span class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span> <span
-						class="glyphicon glyphicon-star-empty"></span>
-				</div>
 				<img class="feedPic" src="${photo.getURL() }">
 
 				<button type="button" class="btn btn-default buttons"

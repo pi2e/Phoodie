@@ -72,14 +72,21 @@ public class AnalyticsAction extends Action {
 			CommentAna commentdatas = new CommentAna();
 			
 			for(int i = 0; i < comments.length; i++) {
-				if(comments[i].getMoodProb() <  -0.6) {
+				
+				System.out.println(comments[i].getMoodProb());
+				System.out.println(comments[i].getMood());
+				
+				if(comments[i].getMoodProb() <  -0.5) {
 					commentdatas.setNegativecount(commentdatas.getNegativecount() + 1);
-				} else if (comments[i].getMoodProb() > 0.6) {
+				} else if (comments[i].getMoodProb() > 0.5) {
 					commentdatas.setPositivecount(commentdatas.getPositivecount() + 1);
 				} else {
 					commentdatas.setNeutralcount(commentdatas.getNeutralcount() + 1);
 				}
 			}
+			System.out.println(commentdatas.getPositivecount());
+			System.out.println(commentdatas.getNegativecount());
+			System.out.println(commentdatas.getNeutralcount());
 			
 			request.getSession().setAttribute("commentdatas", commentdatas);
 			

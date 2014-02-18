@@ -36,21 +36,25 @@ public class Comment {
 
 
 	public double getMoodProb() {
-		if(mood.equals("negative")) {
-			return -moodProb;
-		}
-		else {
-			return moodProb;
-		}	
+		return moodProb;
+		
+//		if(mood.equals("negative")) {
+//			return -moodProb;
+//		}
+//		else {
+//			return moodProb;
+//		}	
 	}
 
 	public void setMoodProb(double moodProb) {
-		if(mood.equals("negative")) {
-			this.moodProb = -moodProb;
-		}
-		else {
-			this.moodProb = moodProb;
-		}	
+		this.moodProb = moodProb;
+		
+//		if(mood.equals("negative")) {
+//			this.moodProb = -moodProb;
+//		}
+//		else {
+//			this.moodProb = moodProb;
+//		}	
 	}
 
 	public String getPhotoId() {

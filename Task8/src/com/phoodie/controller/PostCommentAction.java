@@ -88,7 +88,13 @@ public class PostCommentAction extends Action {
 			SentiBean senti = vh.sendGet(comment);
 			Comment com = new Comment();
 			com.setMood(senti.getMood());
-			com.setMoodProb(Double.parseDouble(senti.getProb()));
+			Double moodProb = Double.parseDouble(senti.getProb());
+			
+			if(com.getMood().equals("negative")) { 
+				moodProb = -moodProb;
+			}		
+			
+			com.setMoodProb(moodProb);
 			com.setPhotoId(photoId);
 			com.setRestaurantId(yelpId);
 			
