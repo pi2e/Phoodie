@@ -38,6 +38,7 @@ public class PostCommentAction extends Action {
 		String photoId = request.getParameter("photoId");
 		String replyid = request.getParameter("replyid");
 		String retweetId = request.getParameter("retweetId");
+		String photourl = "http://www.phoodie.com:8080/Task8/photo.do?photoId="+photoId;
 
 		TwitterAPI twitter = new TwitterAPI(request);
 		try {
@@ -48,11 +49,11 @@ public class PostCommentAction extends Action {
 
 			if (replyid.equals("")) {
 				twitter.update(
-						comment + " " + Photo.getPhotoURL(request, photoId),
+						comment + "      "+ photourl + " " + Photo.getPhotoURL(request, photoId),
 						photoId);
 			} else {
 				twitter.reply(
-						comment + " " + Photo.getPhotoURL(request, photoId),
+						comment + "      "+ photourl + " " + Photo.getPhotoURL(request, photoId),
 						photoId, replyid);
 			}
 			SentiBean senti = vh.sendGet(comment);

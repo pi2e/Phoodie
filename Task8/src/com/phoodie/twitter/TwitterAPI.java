@@ -27,7 +27,6 @@ public class TwitterAPI {
 	}
 	
 	public boolean islogin() {
-		System.out.println(service);
 		if (accessToken == null || service == null) {
 			return false;
 		} else {
@@ -42,8 +41,6 @@ public class TwitterAPI {
 	}
 	
 	public void reply(String statue, String photoid, String statueid) {
-		System.out.println(statue + " #PHOODIE" + photoid);
-		System.out.println(updateapi+URLEncoder.encode(statue + " #PHOODIE" + photoid) +"&in_reply_to_status_id=" + statueid);
 		OAuthRequest trequest = new OAuthRequest(Verb.POST, updateapi+URLEncoder.encode(statue + " #PHOODIE" + photoid) +"&in_reply_to_status_id=" + statueid);
 		service.signRequest(accessToken, trequest); 
 		trequest.send();

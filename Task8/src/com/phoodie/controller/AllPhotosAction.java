@@ -76,7 +76,7 @@ public class AllPhotosAction extends Action {
 					PhotoBean photo = list.get(i);
 					List<Statuse> s = t.search(photo.getId());
 					for(Statuse p : s) {
-						p.setText(p.getText().substring(0, p.getText().length() - 42));
+						p.setText(p.getText().split("http")[0]);
 					}
 					photo.setStatuses(s);
 				}
@@ -92,7 +92,6 @@ public class AllPhotosAction extends Action {
 			request.setAttribute("nextPage", nextPage);
 			
 			request.setAttribute("twitterlogin", twitterlogin);
-			System.out.println(twitterlogin);
 				
 			
 			
