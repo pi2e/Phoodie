@@ -2,8 +2,6 @@ package com.phoodie.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +35,7 @@ public class Controller extends HttpServlet {
 		Action.add(new AuthorizeAction());
 		Action.add(new TwitterLoginAction());
 		Action.add(new TwitterOAuthAction());
-		Action.add(new DiscoverAction());
+		Action.add(new DiscoverAction(model));
 		Action.add(new LogoutAction());
 		Action.add(new PostCommentAction(model));
 		Action.add(new AnalyticsAction(model));
