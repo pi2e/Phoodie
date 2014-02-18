@@ -9,6 +9,7 @@ public class CuisineRank {
 	double moodProb;
 	double leadProb;
 	int commentCount;
+	String name;
 
 	public int getCuisineId() {
 		return cuisineId;
@@ -41,6 +42,15 @@ public class CuisineRank {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 
 }
 

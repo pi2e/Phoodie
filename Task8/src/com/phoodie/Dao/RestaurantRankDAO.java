@@ -29,7 +29,7 @@ public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
 					"restaurantId", restaurantId));
 			RestaurantRank restaurantRank = null;
 
-			if (restaurantRanks == null || restaurantRanks.length == 0) {
+			if (restaurantRanks.length == 0) {
 
 				restaurantRank.setRestaurantId(comment.getRestaurantId());
 				restaurantRank.setMoodProb(comment.getMoodProb());
@@ -66,6 +66,8 @@ public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
 
 			if (restaurantRanks.length != 0) {
 				Arrays.sort(restaurantRanks, new ResComparatorMood());
+			}else{
+				return null;
 			}
 
 		} catch (RollbackException e) {
@@ -117,9 +119,9 @@ class ResComparatorMood implements Comparator<RestaurantRank> {
 	public int compare(RestaurantRank o1, RestaurantRank o2) {
 		// TODO Auto-generated method stub
 		if (o1.getMoodProb() > o2.getMoodProb()) {
-			return 1;
-		} else if (o1.getMoodProb() < o2.getMoodProb()) {
 			return -1;
+		} else if (o1.getMoodProb() < o2.getMoodProb()) {
+			return 1;
 		} else {
 			return 0;
 		}
@@ -131,9 +133,9 @@ class ResComparatorLead implements Comparator<RestaurantRank> {
 	public int compare(RestaurantRank o1, RestaurantRank o2) {
 		// TODO Auto-generated method stub
 		if (o1.getLeadProb() > o2.getLeadProb()) {
-			return 1;
-		} else if (o1.getLeadProb() > o2.getLeadProb()) {
 			return -1;
+		} else if (o1.getLeadProb() > o2.getLeadProb()) {
+			return 1;
 		} else {
 			return 0;
 		}

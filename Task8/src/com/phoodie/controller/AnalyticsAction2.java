@@ -47,7 +47,7 @@ public class AnalyticsAction2 extends Action {
 				dishData = dishRankDAO.getRankByMood(dishId);
 				
 				request.setAttribute("dishData", dishData);
-				System.out.print(dishData.getMoodProb());
+		
 				
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
