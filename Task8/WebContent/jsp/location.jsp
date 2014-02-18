@@ -10,7 +10,7 @@ ${locations.name}, ${locations.location.address[0]}, ${locations.location.city}
 <script>
 function fill(thisValue, category, photoId, yelpId, rating) {
 var str = category.split(',');
-var cat = str[1].replace(/\[|\]/g, '');
+var cat = str[0].replace(/\[|\]/g, '');
 
 $('#inputString'+photoId, window.parent.document).val(thisValue);
 $('#cuisine'+photoId, window.parent.document).val(cat);
