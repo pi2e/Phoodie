@@ -32,22 +32,24 @@ public class AddPhotoToGroupAction extends Action {
 		String[] cuisineNames = cuisine.split("\\s");
 		List<String> tagList = new ArrayList<String>();
 		for (String eachCuisineNm : cuisineNames) {
-			tagList.add("cuisine:" + eachCuisineNm + "=");
+			tagList.add("cuisine:" + eachCuisineNm + "= 1");
 		}
 
 		// Get the Restaurant tags
 		String[] restaurantNames = restaurantName.split("\\s");
 		for (String eachRestaurantNm : restaurantNames) {
-			tagList.add("restaurant:" + eachRestaurantNm + "=");
+			tagList.add("restaurant:" + eachRestaurantNm + "= 2");
 		}
 
 		// Get the Dish tags
 		String[] dishNames = dish.split("\\s");
 		for (String eachDishNm : dishNames) {
-			tagList.add("dish:" + eachDishNm + "=");
+			tagList.add("dish:" + eachDishNm + "= 3");
 		}
 		
 		tagList.add("yelpId:id="+yelpId);
+		tagList.add("restaurantName:name="+restaurantName);
+		tagList.add("cuisineName:name="+cuisine);
 
 		// Add Photo to Group
 

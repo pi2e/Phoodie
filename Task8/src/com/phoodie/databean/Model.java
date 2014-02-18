@@ -121,7 +121,7 @@ public class Model {
 			String jdbcDriver = servletConfig.getInitParameter("jdbcDriver");
 			String jdbcURL = servletConfig.getInitParameter("jdbcURL");
 			ConnectionPool cp = new ConnectionPool(jdbcDriver, jdbcURL);
-
+			System.out.println("model");
 			MustTryDAO = new MustTryDAO(cp, "MUSTTRY");
 			commentDAO = new CommentDAO(cp, "COMMENT");
 			shareDAO = new ShareDAO(cp, "SHARE");

@@ -16,6 +16,36 @@ public class PhotoBean {
 	private Boolean favorite;
 	private List<CommentBean> comments;
 	private List<Statuse> statuses;
+	private String restaurantName;
+	private String cuisineName;
+	private String yelpId;
+	
+	public String getYelpId() {
+		return yelpId;
+	}
+	public void setYelpId(String yelpId) {
+		this.yelpId = yelpId;
+	}
+	public String getCuisineName() {
+		return cuisineName;
+	}
+	public void setCuisineName(String cuisineName) {
+		this.cuisineName = cuisineName;
+	}
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	private int rating;
+	
 	
 	public List<Statuse> getStatuses() {
 		return statuses;

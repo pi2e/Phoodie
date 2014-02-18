@@ -34,7 +34,7 @@
 <div class="row gridRow">
 	<c:forEach var="photo" items="${photoList}" varStatus="status">
 		<div class="col-xs-3 gridThumb">
-			<div class="thumbnail gridThumb">
+			<div class="thumbnail">
 				<img class="gridPic" src="${photo.getURL() }">
 				<button type="button" class="btn btn-default buttons"
 					data-toggle="modal" data-target="#myModal${photo.id }">
@@ -59,9 +59,9 @@
 										placeholder="Dish Name..." onchange=""> <br /> 
 										<input
 										id="cuisine${photo.id}" type="hidden" name="cuisine" />  
-										<input type="text" id="yelpId${photo.id}"
+										<input type="hidden" id="yelpId${photo.id}"
 										name="yelpId" />
-										<input type="text" id="rating${photo.id}"
+										<input type="hidden" id="rating${photo.id}"
 										name="rating" />
 										<input
 										type="hidden" name="photoId" value="${photo.id }">

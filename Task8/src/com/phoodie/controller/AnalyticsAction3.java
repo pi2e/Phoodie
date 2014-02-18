@@ -47,7 +47,7 @@ public class AnalyticsAction3 extends Action {
 				restaurantData = restaurantRankDAO.getRankByMood(restaurantId);
 				
 				request.setAttribute("restaurantData", restaurantData);
-				System.out.print(restaurantData.getMoodProb());
+
 				
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block

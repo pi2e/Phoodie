@@ -11,6 +11,7 @@ public class CuisineByDate {
 	int cuisineId;
 	Date date;
 	double average;
+	int shareCount;
 	
 	
 	public int getId() {
@@ -37,5 +38,12 @@ public class CuisineByDate {
 	public void setAverage(double average) {
 		this.average = average;
 	}
+	public int getShareCount() {
+		return shareCount;
+	}
+	public void setShareCount(int shareCount) {
+		this.shareCount = shareCount;
+	}
+	
 	
 }

@@ -26,7 +26,7 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 					cuisineId));
 			CuisineRank cuisineRank = null;
 
-			if (cuisineRanks == null || cuisineRanks.length == 0) {
+			if ( cuisineRanks.length == 0) {
 				cuisineRank.setCuisineId(comment.getCuisineId());
 				cuisineRank.setMoodProb(comment.getMoodProb());
 				cuisineRank.setLeadProb(comment.getLeadProb());
@@ -36,11 +36,11 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 				return 0;
 			} else {
 				cuisineRank = cuisineRanks[0];
-				cuisineRank.setCommentCount(cuisineRank.getCommentCount() + 1);
-				cuisineRank.setMoodProb((cuisineRank.getMoodProb() + comment
+				cuisineRank.setMoodProb((cuisineRank.getMoodProb() * cuisineRank.getCommentCount() + comment
 						.getMoodProb()) / (cuisineRank.getCommentCount() + 1));
-				cuisineRank.setLeadProb((cuisineRank.getLeadProb() + comment
+				cuisineRank.setLeadProb((cuisineRank.getLeadProb() * cuisineRank.getCommentCount() + comment
 						.getLeadProb()) / (cuisineRank.getCommentCount() + 1));
+				cuisineRank.setCommentCount(cuisineRank.getCommentCount() + 1);
 				update(cuisineRank);
 				return 1;
 			}
@@ -58,6 +58,8 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 
 			if (cuisineRanks.length != 0) {
 				Arrays.sort(cuisineRanks, new CuiComparatorMood());
+			}else{
+				return null;
 			}
 
 		} catch (RollbackException e) {
@@ -83,7 +85,7 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 			return null;
 		}
 	}
-
+	
 	public CuisineRank[] getRankByLead() throws DAOException {
 
 		CuisineRank[] cuisineRanks;
@@ -110,9 +112,9 @@ class CuiComparatorMood implements Comparator<CuisineRank> {
 	public int compare(CuisineRank o1, CuisineRank o2) {
 		// TODO Auto-generated method stub
 		if (o1.getMoodProb() > o2.getMoodProb()) {
-			return 1;
-		} else if (o1.getMoodProb() < o2.getMoodProb()) {
 			return -1;
+		} else if (o1.getMoodProb() < o2.getMoodProb()) {
+			return 1;
 		} else {
 			return 0;
 		}
@@ -124,9 +126,9 @@ class CuiComparatorLead implements Comparator<CuisineRank> {
 	public int compare(CuisineRank o1, CuisineRank o2) {
 		// TODO Auto-generated method stub
 		if (o1.getLeadProb() > o2.getLeadProb()) {
-			return 1;
-		} else if (o1.getLeadProb() > o2.getLeadProb()) {
 			return -1;
+		} else if (o1.getLeadProb() > o2.getLeadProb()) {
+			return 1;
 		} else {
 			return 0;
 		}

@@ -10,6 +10,7 @@ public class RestaurantByDate {
 	String restaurantId;
 	Date date;
 	double average;
+	int shareCount;
 
 	public int getId() {
 		return id;
@@ -42,5 +43,14 @@ public class RestaurantByDate {
 	public void setAverage(double average) {
 		this.average = average;
 	}
+
+	public int getShareCount() {
+		return shareCount;
+	}
+
+	public void setShareCount(int shareCount) {
+		this.shareCount = shareCount;
+	}
+	
 
 }

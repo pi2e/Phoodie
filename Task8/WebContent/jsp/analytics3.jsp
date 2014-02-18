@@ -10,14 +10,18 @@
 <head>
 <head>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<%  RestaurantRank[] arrayData =(RestaurantRank[]) request.getAttribute("arrayData");%>
+	  <% if(arrayData != null){%>
 <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-    	 <%  RestaurantRank[] arrayData =(RestaurantRank[]) request.getAttribute("arrayData");%>
+    	 
         var data = google.visualization.arrayToDataTable([
           ['Dish', 'Mood'],
-          <% for(int i = 0; i < 5; i++) { %>
+          <% 
+          int len = arrayData.length > 5 ? 5 : arrayData.length;
+          for(int i = 0; i < len; i++) { %>
           
           ['<%=arrayData[i].getRestaurantId()%>',<%=arrayData[i].getMoodProb()%>],
 
@@ -26,12 +30,20 @@
 
 		var options = {
 			title : 'Restaurant By Mood',
-			vAxis : {
+			 vAxis : {
 				title : 'Restaurant',
 				titleTextStyle : {
-					/* color : 'blue' */
+					 color : 'blue' 
 				}
-			}
+			}, 
+	/* 		hAxis: {
+      		    gridlines: {
+      		        color: 'transparent'
+      		    }
+      		}, */
+      		bar:{
+    			groupWidth: '60%', 
+    		}
 		};
 
 		var chart = new google.visualization.BarChart(document
@@ -39,18 +51,20 @@
 		chart.draw(data, options);
 	}
 </script>
+<%}%>
 
 </script>
 <%  RestaurantRank arrayData3 =(RestaurantRank) request.getAttribute("restaurantData");
 /* Double averageMood = (arrayData3.getMoodProb()*100);
 int val = averageMood.intValue();*/
 %>
+	  <% if(arrayData3 != null){%>
  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script type='text/javascript'>
       google.load('visualization', '1', {packages:['gauge']});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-    	  <% if(arrayData3 != null){%>
+    
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
           ['Mood',<%=arrayData3.getMoodProb()*100%>],
@@ -67,17 +81,19 @@ int val = averageMood.intValue();*/
         var chart = new google.visualization.Gauge(document.getElementById('chart_div3'));
         chart.draw(data, options);
       }
-    	  <%}%>
+    	 
     </script>
+     <%}%>
 
 </script>
  <%  RestaurantByDate[] arrayData2 =(RestaurantByDate[]) request.getAttribute("arrayData2");%>
+ <% if(arrayData2 != null){%>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-    	  <% if(arrayData2 != null){%>
+    	  
     		var data = google.visualization.arrayToDataTable([
     		                                  				[ 'Date', 'Mood' ],
     		                                  			    <% for(int i = 0; i < arrayData2.length; i++) { %>
@@ -89,14 +105,64 @@ int val = averageMood.intValue();*/
     		                                  				]);
 
         var options = {
-          title: 'Restaurant By Date'
+          title: 'Restaurant By Date',
+          vAxis: {
+  		    gridlines: {
+  		        color: 'transparent'
+  		    }
+  		},
+  hAxis: {
+      gridlines: {
+          color: 'transparent'
+      }
+  }
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
       }
- 	   <%}%>
+ 	  
     </script>
+     <%}%>
+    
+    </script>
+    	  <% if(arrayData2 != null){%>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+    
+    		var data = google.visualization.arrayToDataTable([
+    		                                  				[ 'Date', 'Share' ],
+    		                                  			    <% for(int i = 0; i < arrayData2.length; i++) { %>
+    		                                  		         
+    		                                  		          [new Date('<%=arrayData2[i].getDate()%>'), <%=arrayData2[i].getShareCount()%>],
+    		                                  		          
+    		                                  		          <%} %>
+    		                                  		          
+    		                                  				]);
+
+        var options = {
+          title: 'Share By Date',
+          vAxis: {
+  		    gridlines: {
+  		        color: 'transparent'
+  		    }
+  		},
+  hAxis: {
+      gridlines: {
+          color: 'transparent'
+      }
+  }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div4'));
+        chart.draw(data, options);
+      }
+ 	   
+    </script>
+    <%}%>
 </head>
 
 <div class="container">
@@ -128,6 +194,7 @@ int val = averageMood.intValue();*/
 	<div id="chart_div" style="width: 600px; height: 400px;"></div>
 <div id="chart_div3" style="width: 500px; height: 150px;"></div>
 	<div id="chart_div2" style="width: 900px; height: 400px;"></div>
+		<div id="chart_div4" style="width: 900px; height: 400px;"></div>
 </body>
 
 <jsp:include page="bottom.jsp" />
