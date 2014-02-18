@@ -186,6 +186,32 @@
 	
 </script>
 
+
+<script>
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = google.visualization.arrayToDataTable([
+                                                  ['cuisine name','Negative', 'Neutral', 'Positive'],
+                                                  ['${searchTerm}', ${commentdatas.negativecount}, ${commentdatas.neutralcount}, ${commentdatas.positivecount}]
+                                                ]);
+
+var options = {
+                                                  width: 600,
+                                                  height: 400,
+                                                  legend: { position: 'top', maxLines: 3 },
+                                          	bar: { groupWidth: '75%' },
+                                                  isStacked: true,
+                                                };
+
+var chart = new google.visualization.BarChart(document.getElementById('chart_div5'));
+chart.draw(data, options);
+}
+</script>
+
+
+
+
 </head>
 
 <div class="container">
@@ -235,6 +261,9 @@
 					</div>
 					<div class="well" style="width: 900px;">
 						<div id="chart_div4" style="width: 900px; height: 270px;"></div>
+					</div>
+					<div class="well" style="width: 900px;">
+						<div id="chart_div5" style="width: 900px; height: 270px;"></div>
 					</div>
 				</div>
 			</div>

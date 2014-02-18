@@ -3,11 +3,15 @@ package com.phoodie.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.DAOException;
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
+import com.phoodie.Dao.CommentDAO;
 import com.phoodie.Dao.CuisineByDateDAO;
 import com.phoodie.Dao.CuisineDAO;
 import com.phoodie.Dao.CuisineRankDAO;
+import com.phoodie.databean.Comment;
+import com.phoodie.databean.CommentAna;
 import com.phoodie.databean.Cuisine;
 import com.phoodie.databean.CuisineByDate;
 import com.phoodie.databean.CuisineRank;
@@ -20,12 +24,14 @@ public class AnalyticsAction extends Action {
 	CuisineRankDAO cuisineRankDAO;
 	CuisineByDateDAO cuisineByDateDAO;
 	CuisineDAO cuisineDAO;
+	CommentDAO commentDAO;
 	
 	public AnalyticsAction(Model model) {
 
 		cuisineRankDAO = model.getCuisineRankDAO();
 		cuisineByDateDAO = model.getCuisineByDateDAO();
 		cuisineDAO = model.getCuisineDAO();
+		commentDAO = model.getCommentDAO();
 	}
 
 	@Override
@@ -61,7 +67,22 @@ public class AnalyticsAction extends Action {
 			request.setAttribute("cuisineData", cuisineData);
 			
 			
+			Comment[] comments = commentDAO.match(MatchArg.equals("cuisineId", cuisineId));
 			
+			CommentAna commentdatas = new CommentAna();
+			
+			for(int i = 0; i < comments.length; i++) {
+				if(comments[i].getMoodProb() < -0.5) {
+					System.out.println(comments[i].getMoodProb());
+					commentdatas.setNegativecount(commentdatas.getNegativecount() + 1);
+				} else if (comments[i].getMoodProb() > 0.5) {
+					commentdatas.setPositivecount(commentdatas.getPositivecount() + 1);
+				} else {
+					commentdatas.setNeutralcount(commentdatas.getNeutralcount() + 1);
+				}
+			}
+			
+			request.getSession().setAttribute("commentdatas", commentdatas);
 			
 			
 			
