@@ -2,10 +2,14 @@ package com.phoodie.controller;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.MatchArg;
+
 import com.phoodie.Dao.CommentDAO;
+import com.phoodie.Dao.CuisineDAO;
 import com.phoodie.databean.Comment;
 import com.phoodie.databean.Model;
 import com.phoodie.flickr.Photo;
@@ -18,10 +22,12 @@ import com.phoodie.viralheat.Viralheat;
 public class PostCommentAction extends Action {
 
 	private CommentDAO commentDAO;
+	private CuisineDAO cuisineDAO;
 	private Viralheat vh;
 
 	public PostCommentAction(Model model) {
 		commentDAO = model.getCommentDAO();
+		cuisineDAO = model.getCuisineDAO();
 		vh = new Viralheat();
 	}
 
@@ -38,6 +44,9 @@ public class PostCommentAction extends Action {
 		String photoId = request.getParameter("photoId");
 		String replyid = request.getParameter("replyid");
 		String retweetId = request.getParameter("retweetId");
+		String dish = request.getParameter("dish");
+		String cuisineName = request.getParameter("cuisineName");
+		System.out.println("cuisine"+cuisineDAO);
 		String photourl = "http://www.phoodie.com:8080/Task8/photo.do?photoId="+photoId;
 
 		TwitterAPI twitter = new TwitterAPI(request);
@@ -61,6 +70,17 @@ public class PostCommentAction extends Action {
 			com.setMood(senti.getMood());
 			com.setMoodProb(Double.parseDouble(senti.getProb()));
 			com.setPhotoId(photoId);
+			
+			//Get the cuisine Id
+			Integer cuisineId = cuisineDAO.getCuisineIdByName(cuisineName);
+			if(cuisineId != null){
+				com.setCuisineId(cuisineId);
+			}
+			
+			com.setDish(dish);
+			Calendar cal = Calendar.getInstance();
+			com.setDate(cal.getTime());
+			
 			commentDAO.create(com);
 			
 
