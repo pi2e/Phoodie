@@ -2,8 +2,15 @@ package com.phoodie.databean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("dish")
+@PrimaryKey("id")
 public class DishRank {
+	int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	String dish;
 	double moodProb;
 	double leadProb;

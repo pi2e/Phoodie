@@ -60,6 +60,15 @@ public class AnalyticsAction extends Action {
 			
 			request.setAttribute("cuisineData", cuisineData);
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

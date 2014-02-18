@@ -40,7 +40,12 @@ public class Comment {
 	}
 
 	public void setMoodProb(double moodProb) {
-		this.moodProb = moodProb;
+		if(mood.equals("negative")) {
+			this.moodProb = -moodProb;
+		}
+		else {
+			this.moodProb = moodProb;
+		}	
 	}
 
 	public String getPhotoId() {

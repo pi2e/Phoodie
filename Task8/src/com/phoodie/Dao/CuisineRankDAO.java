@@ -24,7 +24,7 @@ public class CuisineRankDAO extends GenericDAO<CuisineRank> {
 			int cuisineId = comment.getCuisineId();
 			CuisineRank[] cuisineRanks = match(MatchArg.equals("cuisineId",
 					cuisineId));
-			CuisineRank cuisineRank = null;
+			CuisineRank cuisineRank = new CuisineRank();
 
 			if ( cuisineRanks.length == 0) {
 				cuisineRank.setCuisineId(comment.getCuisineId());

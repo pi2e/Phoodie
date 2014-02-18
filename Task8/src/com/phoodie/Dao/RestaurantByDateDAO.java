@@ -31,7 +31,7 @@ public class RestaurantByDateDAO extends GenericDAO<RestaurantByDate>{
 			RestaurantByDate[] restaurantByDates = match(MatchArg.and(
 					MatchArg.equals("restaurantId", restaurantId),
 					MatchArg.equals("date", date)));
-			RestaurantByDate restaurantByDate = null;
+			RestaurantByDate restaurantByDate = new RestaurantByDate();
 
 			if (restaurantByDates == null || restaurantByDates.length == 0) {
 				restaurantByDate.setRestaurantId(restaurantId);
@@ -45,6 +45,7 @@ public class RestaurantByDateDAO extends GenericDAO<RestaurantByDate>{
 			restaurantByDate
 					.setAverage((restaurantByDate.getAverage() *restaurantByDate.getShareCount() + comment
 							.getMoodProb()) / restaurantByDate.getShareCount()+1);
+			restaurantByDate.setShareCount(restaurantByDate.getShareCount() + 1);
 			update(restaurantByDate);
 			return 1;
 

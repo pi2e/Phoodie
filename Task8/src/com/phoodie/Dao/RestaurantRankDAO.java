@@ -27,7 +27,7 @@ public class RestaurantRankDAO extends GenericDAO<RestaurantRank> {
 			String restaurantId = comment.getRestaurantId();
 			RestaurantRank[] restaurantRanks = match(MatchArg.equals(
 					"restaurantId", restaurantId));
-			RestaurantRank restaurantRank = null;
+			RestaurantRank restaurantRank = new RestaurantRank();
 
 			if (restaurantRanks.length == 0) {
 

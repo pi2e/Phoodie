@@ -2,9 +2,18 @@ package com.phoodie.databean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("cuisineId")
+@PrimaryKey("id")
 public class CuisineRank {
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	int id;
 	int cuisineId;
 	double moodProb;
 	double leadProb;

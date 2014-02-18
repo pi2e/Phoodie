@@ -30,7 +30,7 @@ public class CuisineByDateDAO extends GenericDAO<CuisineByDate> {
 			CuisineByDate[] cuisineByDates = match(MatchArg.and(
 					MatchArg.equals("cuisineId", cuisine),
 					MatchArg.equals("date", date)));
-			CuisineByDate cuisineByDate = null;
+			CuisineByDate cuisineByDate = new CuisineByDate();
 
 			if (cuisineByDates == null || cuisineByDates.length == 0) {
 				cuisineByDate.setCuisineId(comment.getCuisineId());

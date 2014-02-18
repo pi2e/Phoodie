@@ -29,7 +29,7 @@ public class DishByDateDAO extends GenericDAO<DishByDate> {
 			DishByDate[] dishByDates = match(MatchArg.and(
 					MatchArg.equals("dish", dish),
 					MatchArg.equals("date", date)));
-			DishByDate dishByDate = null;
+			DishByDate dishByDate = new DishByDate();
 
 			if (dishByDates == null || dishByDates.length == 0) {
 				dishByDate.setDish(dish);

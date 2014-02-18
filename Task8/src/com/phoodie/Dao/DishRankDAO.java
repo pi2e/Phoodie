@@ -24,7 +24,7 @@ public class DishRankDAO extends GenericDAO<DishRank> {
 		try {
 			String dish = comment.getDish();
 			DishRank[] dishRanks = match(MatchArg.equals("dish", dish));
-			DishRank dishRank = null;
+			DishRank dishRank = new DishRank();
 
 			if (dishRanks.length == 0) {
 				dishRank.setDish(comment.getDish());

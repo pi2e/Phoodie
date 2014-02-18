@@ -2,6 +2,7 @@ package com.phoodie.controller;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.genericdao.MatchArg;
 
 import com.phoodie.Dao.CommentDAO;
+import com.phoodie.Dao.CuisineByDateDAO;
 import com.phoodie.Dao.CuisineDAO;
+import com.phoodie.Dao.CuisineRankDAO;
+import com.phoodie.Dao.DishByDateDAO;
+import com.phoodie.Dao.DishRankDAO;
+import com.phoodie.Dao.RestaurantByDateDAO;
+import com.phoodie.Dao.RestaurantRankDAO;
 import com.phoodie.databean.Comment;
 import com.phoodie.databean.Model;
 import com.phoodie.flickr.Photo;
@@ -23,11 +30,23 @@ public class PostCommentAction extends Action {
 
 	private CommentDAO commentDAO;
 	private CuisineDAO cuisineDAO;
+	private CuisineRankDAO cuisinerankDAO;
+	private CuisineByDateDAO cuisineByDateDAO;
+	private DishByDateDAO dishByDateDAO;
+	private DishRankDAO dishRankDAO;
+	private RestaurantByDateDAO restaurantByDateDAO;
+	private RestaurantRankDAO restaurantRankDAO;
 	private Viralheat vh;
 
 	public PostCommentAction(Model model) {
 		commentDAO = model.getCommentDAO();
 		cuisineDAO = model.getCuisineDAO();
+		cuisineByDateDAO = model.getCuisineByDateDAO();
+		cuisinerankDAO = model.getCuisineRankDAO();
+		dishByDateDAO = model.getDishByDateDAO();
+		dishRankDAO = model.getDishRankDAO();
+		restaurantByDateDAO = model.getRestaurantByDateDAO();
+		restaurantRankDAO = model.getRestaurantRankDAO();
 		vh = new Viralheat();
 	}
 
@@ -81,9 +100,17 @@ public class PostCommentAction extends Action {
 			
 			com.setDish(dish);
 			Calendar cal = Calendar.getInstance();
-			com.setDate(cal.getTime());
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			com.setDate(format.parse(format.format(cal.getTime())));
 			
 			commentDAO.create(com);
+			
+			cuisinerankDAO.update(com);
+			cuisineByDateDAO.update(com);
+			dishRankDAO.update(com);
+			dishByDateDAO.update(com);
+			restaurantByDateDAO.update(com);
+			restaurantRankDAO.update(com);
 			
 
 		} catch (InvalidKeyException e) {
